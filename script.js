@@ -1,5 +1,6 @@
 const menuButton = document.querySelector(".menu-button");
 const siteNav = document.querySelector(".site-nav");
+const siteHeader = document.querySelector(".site-header");
 const navLinks = document.querySelectorAll(".site-nav a");
 const navPill = document.querySelector(".nav-pill");
 const sections = document.querySelectorAll("main section[id]");
@@ -42,10 +43,13 @@ function positionNavPill() {
   navPill.style.opacity = "1";
 }
 
-const savedTheme = localStorage.getItem("aeris-theme");
-const preferredTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
-  ? "dark"
-  : "light";
+let savedTheme = null;
+
+try {
+  savedTheme = localStorage.getItem("aeris-theme");
+} catch (error) {
+  savedTheme = null;
+}
 
 function applyTheme(theme) {
   root.setAttribute("data-theme", theme);
@@ -61,14 +65,18 @@ function applyTheme(theme) {
   }
 }
 
-applyTheme(savedTheme || preferredTheme);
+applyTheme(savedTheme || "dark");
 
 themeToggle.addEventListener("click", () => {
   const currentTheme = root.getAttribute("data-theme");
   const nextTheme = currentTheme === "dark" ? "light" : "dark";
 
   applyTheme(nextTheme);
-  localStorage.setItem("aeris-theme", nextTheme);
+  try {
+    localStorage.setItem("aeris-theme", nextTheme);
+  } catch (error) {
+    // The selected theme still applies for the current page if storage is unavailable.
+  }
 });
 
 const detailDialog = document.querySelector("#detail-dialog");
@@ -117,12 +125,50 @@ document.addEventListener("keydown", (event) => {
 });
 
 // Navigation remains visible at every screen size, so no mobile menu state is needed.
+let clickedNavSection = null;
+let clickedNavReleaseTimer = null;
+
+function releaseClickedNavSection() {
+  if (!clickedNavSection) return;
+  clickedNavSection = null;
+  window.clearTimeout(clickedNavReleaseTimer);
+  requestNavUpdate();
+}
+
 navLinks.forEach((link) => {
-  link.addEventListener("click", () => {
+  link.addEventListener("click", (event) => {
+    const sectionId = link.getAttribute("href")?.slice(1);
+    const targetSection = sectionId ? document.getElementById(sectionId) : null;
+
     siteNav.classList.remove("open");
     document.body.classList.remove("menu-open");
+
+    if (!targetSection || !siteHeader) return;
+
+    event.preventDefault();
+
+    const headerBottom = siteHeader.getBoundingClientRect().bottom;
+    const targetTop = targetSection.getBoundingClientRect().top + window.scrollY;
+    const scrollTop = Math.max(0, targetTop - headerBottom - 10);
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    clickedNavSection = sectionId;
+    setActiveNav(sectionId);
+    positionNavPill();
+
+    history.replaceState(null, "", `#${sectionId}`);
+    window.scrollTo({
+      top: scrollTop,
+      behavior: reducedMotion ? "auto" : "smooth"
+    });
+
+    window.clearTimeout(clickedNavReleaseTimer);
+    clickedNavReleaseTimer = window.setTimeout(releaseClickedNavSection, reducedMotion ? 80 : 1400);
   });
 });
+
+window.addEventListener("wheel", releaseClickedNavSection, { passive: true });
+window.addEventListener("touchstart", releaseClickedNavSection, { passive: true });
 
 const revealObserver = new IntersectionObserver(
   (entries) => {
@@ -160,9 +206,12 @@ function setActiveNav(sectionId) {
 }
 
 function updateActiveSection() {
-  const headerBottom = document
-    .querySelector(".site-header")
-    ?.getBoundingClientRect().bottom ?? 0;
+  if (clickedNavSection) {
+    setActiveNav(clickedNavSection);
+    return;
+  }
+
+  const headerBottom = siteHeader?.getBoundingClientRect().bottom ?? 0;
   const sectionBoundary = headerBottom + 24;
   const firstSection = sections[0];
   const lastSection = sections[sections.length - 1];
@@ -208,6 +257,32 @@ function requestNavUpdate() {
 window.addEventListener("resize", requestNavUpdate);
 window.addEventListener("scroll", requestNavUpdate, { passive: true });
 window.addEventListener("load", () => window.setTimeout(requestNavUpdate, 60));
+
+const linkedinProfileLinks = document.querySelectorAll('.team-card a[href*="linkedin.com/in/"]');
+const userAgent = navigator.userAgent || "";
+const isAndroidDevice = /Android/i.test(userAgent);
+const isAppleMobileDevice =
+  /iPhone|iPad|iPod/i.test(userAgent) ||
+  (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+
+linkedinProfileLinks.forEach((link) => {
+  link.addEventListener("click", (event) => {
+    const profileUrl = new URL(link.href);
+
+    if (isAndroidDevice) {
+      event.preventDefault();
+      const intentTarget = `${profileUrl.host}${profileUrl.pathname}${profileUrl.search}`;
+      const fallbackUrl = encodeURIComponent(profileUrl.href);
+      window.location.href = `intent://${intentTarget}#Intent;scheme=https;package=com.linkedin.android;S.browser_fallback_url=${fallbackUrl};end`;
+      return;
+    }
+
+    if (isAppleMobileDevice) {
+      event.preventDefault();
+      window.location.href = profileUrl.href;
+    }
+  });
+});
 
 const developmentDropdowns = document.querySelectorAll(".timeline-item details");
 const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");

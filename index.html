@@ -1,8 +1,17 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <script>
+    (() => {
+      try {
+        document.documentElement.dataset.theme = localStorage.getItem("aeris-theme") || "dark";
+      } catch (error) {
+        document.documentElement.dataset.theme = "dark";
+      }
+    })();
+  </script>
   <meta name="description" content="Aeris by Optik is a portable respiratory muscle strength prototype developed for the Respiratory Investigation Unit at Royal North Shore Hospital, guiding MIP and MEP testing and presenting clear results with repeatability checks."/>
   <title>Aeris by Optik | Respiratory Muscle Strength Testing</title>
   <link rel="icon" type="image/svg+xml" href="./assets/aeris-mark.svg?v=2" />
@@ -12,7 +21,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="styles.css?v=20260714-mobile-layout-4" />
+  <link rel="stylesheet" href="styles.css?v=20260715-polish-1" />
   <style>
 
     .client-card {
@@ -74,9 +83,9 @@
     </a>
 
     <div class="header-actions">
-      <button class="theme-toggle" type="button" aria-label="Switch to dark mode">
-        <span class="theme-icon" aria-hidden="true">☾</span>
-        <span class="theme-label">Dark</span>
+      <button class="theme-toggle" type="button" aria-label="Switch to light mode">
+        <span class="theme-icon" aria-hidden="true">☀</span>
+        <span class="theme-label">Light</span>
       </button>
 
     </div>
@@ -459,6 +468,6 @@
 
     </section>
   </main>
-  <script src="script.js?v=20260714-mobile-layout-4"></script>
+  <script src="script.js?v=20260715-polish-1"></script>
 </body>
 </html>

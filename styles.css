@@ -2594,3 +2594,22 @@ svg {
     max-width: 100%;
   }
 }
+
+
+/* --------------------------------------------------------------------------
+   Final interaction polish
+   -------------------------------------------------------------------------- */
+
+/* Keep no-JavaScript desktop anchor jumps slightly beyond the active-section
+   boundary. JavaScript calculates the precise fixed-header offset at runtime. */
+@media (min-width: 981px) and (max-width: 2199px) {
+  main section[id] {
+    scroll-margin-top: 66px;
+  }
+}
+
+@media (min-width: 2200px) {
+  main section[id] {
+    scroll-margin-top: 98px;
+  }
+}
