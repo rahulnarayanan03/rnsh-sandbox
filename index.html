@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Aeris by Optik is a portable respiratory muscle strength prototype developed for the Respiratory Investigation Unit at Royal North Shore Hospital, guiding MIP and MEP testing and presenting clear results with repeatability checks."/>
+  <title>Aeris by Optik | Respiratory Muscle Strength Testing</title>
+  <link rel="icon" type="image/svg+xml" href="./assets/aeris-mark.svg?v=2" />
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/aeris-mark-32.png?v=2" />
+  <link rel="shortcut icon" href="./favicon.ico?v=2" />
+  <link rel="apple-touch-icon" sizes="180x180" href="./assets/aeris-mark-180.png?v=2" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+
+    .client-card {
+      grid-template-columns: minmax(230px, 280px) 1fr;
+      align-items: stretch;
+    }
+
+    .client-image {
+      min-height: 100%;
+      margin: 0;
+      overflow: hidden;
+      border-radius: 22px;
+      background: var(--teal-light);
+    }
+
+    .client-image img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: 50% 48%;
+    }
+
+    @media (max-width: 980px) {
+      .client-card {
+        grid-template-columns: minmax(220px, 280px) 1fr;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .client-card {
+        grid-template-columns: 1fr;
+      }
+
+      .client-image {
+        min-height: 0;
+        aspect-ratio: 16 / 9;
+      }
+
+      .client-image img {
+        object-position: center 46%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <svg class="glass-defs" aria-hidden="true" focusable="false">
+    <filter id="glass-distortion" x="-20%" y="-20%" width="140%" height="140%" filterUnits="objectBoundingBox">
+      <feTurbulence type="fractalNoise" baseFrequency="0.008 0.014" numOctaves="2" seed="7" result="noise" />
+      <feGaussianBlur in="noise" stdDeviation="2.2" result="blurredNoise" />
+      <feDisplacementMap in="SourceGraphic" in2="blurredNoise" scale="70" xChannelSelector="R" yChannelSelector="G" />
+    </filter>
+  </svg>
+
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="Aeris by Optik home">
+      <span class="brand-mark">A</span>
+      <span class="brand-text"><strong>Aeris</strong><small>by Optik</small></span>
+    </a>
+
+    <div class="header-actions">
+      <button class="theme-toggle" type="button" aria-label="Switch to dark mode">
+        <span class="theme-icon" aria-hidden="true">☾</span>
+        <span class="theme-label">Dark</span>
+      </button>
+
+      <button class="menu-button" type="button" aria-label="Open navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+
+    <nav class="site-nav" aria-label="Main navigation">
+      <span class="nav-pill" aria-hidden="true"></span>
+      <a href="#overview">Overview</a>
+      <a href="#client">Client</a>
+      <a href="#brief">Project Brief</a>
+      <a href="#development">Development</a>
+      <a href="#product">Final Product</a>
+      <a href="#team">Team</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero section">
+      <div class="hero-copy reveal">
+        <p class="eyebrow">Aeris by Optik</p>
+        <h1>Respiratory pressure testing, made clearer.</h1>
+        <p class="hero-summary">
+          Aeris is a portable respiratory muscle strength prototype developed for the Respiratory Investigation
+          Unit at Royal North Shore Hospital. It guides clinicians through MIP and MEP testing, captures each
+          breathing effort, and presents clear results with built-in repeatability checks.
+        </p>
+
+        <div class="hero-actions">
+          <a class="button button-primary" href="#overview">Explore Aeris</a>
+          <a class="button button-secondary" href="#product">See the experience</a>
+        </div>
+      </div>
+
+      <div class="hero-panel reveal">
+        <div class="device-shell">
+          <div class="device-topbar">
+            <span class="status-dot"></span>
+            <span>Aeris Testing System</span>
+            <span class="device-time">READY</span>
+          </div>
+
+          <div class="device-screen">
+            <p class="screen-label">SELECT TEST</p>
+            <div class="screen-buttons">
+              <div class="screen-button">
+                <strong>MIP</strong>
+                <span>Inspiratory pressure</span>
+              </div>
+              <div class="screen-button">
+                <strong>MEP</strong>
+                <span>Expiratory pressure</span>
+              </div>
+            </div>
+            <div class="screen-footer">
+              <span>Touch or button navigation</span>
+              <span>Ready for testing</span>
+            </div>
+          </div>
+        </div>
+
+        <button class="floating-card floating-card-one" type="button" data-detail="workflow" aria-haspopup="dialog" aria-controls="detail-dialog">
+          <span>01</span>
+          <p>Guided MIP and MEP workflow</p>
+        </button>
+
+        <button class="floating-card floating-card-two" type="button" data-detail="results" aria-haspopup="dialog" aria-controls="detail-dialog">
+          <span>02</span>
+          <p>Clear results and repeatability checks</p>
+        </button>
+      </div>
+    </section>
+
+    <div class="detail-dialog" id="detail-dialog" role="dialog" aria-modal="true" aria-labelledby="detail-dialog-title" hidden>
+      <div class="detail-dialog-backdrop" data-close-dialog></div>
+      <div class="detail-dialog-panel">
+        <button class="detail-dialog-close" type="button" aria-label="Close details" data-close-dialog>×</button>
+        <p class="eyebrow">Aeris feature</p>
+        <h2 id="detail-dialog-title"></h2>
+        <p id="detail-dialog-copy"></p>
+      </div>
+    </div>
+
+    <section class="stats-strip" aria-label="Project summary">
+      <div>
+        <strong>2</strong>
+        <span>MIP and MEP tests</span>
+      </div>
+      <div>
+        <strong>3</strong>
+        <span>Attempts compared</span>
+      </div>
+      <div>
+        <strong>10%</strong>
+        <span>Repeatability criterion</span>
+      </div>
+      <div>
+        <strong>1</strong>
+        <span>Guided testing workflow</span>
+      </div>
+    </section>
+
+    <section id="overview" class="section section-grid">
+      <div class="section-heading reveal">
+        <p class="eyebrow">Product Overview</p>
+        <h2>One Clear Workflow from Test Selection to Results.</h2>
+      </div>
+
+      <div class="section-content reveal">
+        <p class="lead">
+          Aeris brings the complete respiratory muscle strength assessment into one portable product,
+          guiding the clinician from test selection and patient instructions through repeated attempts and results.
+        </p>
+        <p>
+          Maximum Inspiratory Pressure measures the strength produced while breathing in, while Maximum
+          Expiratory Pressure measures the strength produced while breathing out. Together, these tests help
+          clinicians assess respiratory muscle weakness linked to chronic lung disease and neuromuscular disorders.
+        </p>
+        <p>
+          Each test guides the clinician through repeated breathing efforts, shows the pressure curve as it
+          happens, and checks when three results are close enough to be considered repeatable. The final summary
+          brings the result, predicted comparison, repeatability, attempt count, and test time together on one screen.
+        </p>
+      </div>
+    </section>
+
+    <section id="client" class="section section-dark">
+      <div class="client-layout">
+        <div class="section-heading reveal">
+        <p class="eyebrow">Client</p>
+        <h2>Developed for Royal North Shore Hospital.</h2>
+        </div>
+
+        <div class="client-card reveal">
+          <figure class="client-image">
+            <img src="assets/rnsh-hospital.webp" alt="Royal North Shore Hospital campus" loading="lazy" decoding="async"/>
+          </figure>
+          <div>
+            <p class="lead">
+              The Respiratory Investigation Unit at RNSH asked for a more accessible way to measure respiratory muscle strength than systems costing over $75,000.
+            </p>
+            <p>
+              Optik turned the brief into Aeris, a portable product that guides MIP and MEP tests, records each attempt, and presents clear results.
+            </p>
+            <p>
+              Designed for respiratory laboratories, speech pathology, and pulmonary rehabilitation.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="brief" class="section">
+      <div class="section-heading reveal">
+        <p class="eyebrow">Project Brief</p>
+        <h2>The Core Requirements for Aeris.</h2>
+      </div>
+
+      <div class="brief-grid">
+        <article class="brief-card reveal">
+          <span class="card-number">01</span>
+          <h3>Make testing more accessible</h3>
+          <p>
+            Create a portable alternative that reduces reliance on expensive laboratory systems and
+            makes respiratory muscle strength testing easier to access.
+          </p>
+        </article>
+
+        <article class="brief-card reveal">
+          <span class="card-number">02</span>
+          <h3>Support MIP and MEP testing</h3>
+          <p>
+            Guide clinicians through the two tests used to assess the strength generated while a patient
+            breathes in and breathes out.
+          </p>
+        </article>
+
+        <article class="brief-card reveal">
+          <span class="card-number">03</span>
+          <h3>Show each attempt clearly</h3>
+          <p>
+            Present the pressure curve during each breathing effort so clinicians can review how the test
+            was performed rather than relying on one final number alone.
+          </p>
+        </article>
+
+        <article class="brief-card reveal">
+          <span class="card-number">04</span>
+          <h3>Build in repeatability checks</h3>
+          <p>
+            Compare repeated attempts and clearly show when three results are within the required 10%
+            range, helping clinicians judge whether the test is consistent.
+          </p>
+        </article>
+
+        <article class="brief-card reveal">
+          <span class="card-number">05</span>
+          <h3>Prepare for clinical validation</h3>
+          <p>
+            Create a working prototype that can be compared with established laboratory equipment before
+            it is considered for clinical use.
+          </p>
+        </article>
+
+        <article class="brief-card reveal">
+          <span class="card-number">06</span>
+          <h3>Fit the clinical workflow</h3>
+          <p>
+            Make the instructions, navigation, repeated attempts, and results clear for respiratory
+            laboratories, speech pathology, and pulmonary rehabilitation teams.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="development" class="section section-soft">
+      <div class="section-heading reveal">
+        <p class="eyebrow">Development Process</p>
+        <h2>From Clinical Need to Working Prototype.</h2>
+      </div>
+
+      <div class="timeline">
+        <article class="timeline-item reveal">
+          <div class="timeline-marker">1</div>
+          <details>
+            <summary><span class="timeline-label">Stage 1</span><strong>Understanding the clinical workflow</strong></summary>
+            <div class="timeline-content"><p>The team worked from the RNSH brief to define what clinicians need before, during, and after a MIP or MEP test: clear instructions, repeated attempts, repeatability guidance, and an easy-to-read result summary.</p></div>
+          </details>
+        </article>
+
+        <article class="timeline-item reveal">
+          <div class="timeline-marker">2</div>
+          <details>
+            <summary><span class="timeline-label">Stage 2</span><strong>Shaping the product experience</strong></summary>
+            <div class="timeline-content"><p>The complete journey was mapped from choosing a test to reviewing the final result. This established what the clinician should see, what action comes next, and how Aeris should respond at each stage.</p></div>
+          </details>
+        </article>
+
+        <article class="timeline-item reveal">
+          <div class="timeline-marker">3</div>
+          <details>
+            <summary><span class="timeline-label">Stage 3</span><strong>Building the guided testing flow</strong></summary>
+            <div class="timeline-content"><p>Separate MIP and MEP journeys were created with clear test selection, step-by-step instructions, live test feedback, repeated attempts, and a consistent path to the final results.</p></div>
+          </details>
+        </article>
+
+        <article class="timeline-item reveal">
+          <div class="timeline-marker">4</div>
+          <details>
+            <summary><span class="timeline-label">Stage 4</span><strong>Refining results and repeatability</strong></summary>
+            <div class="timeline-content"><p>The results experience was refined to show the breathing effort, compare repeated attempts, and make the repeatability outcome easy to understand without searching across multiple screens.</p></div>
+          </details>
+        </article>
+
+        <article class="timeline-item reveal">
+          <div class="timeline-marker">5</div>
+          <details>
+            <summary><span class="timeline-label">Stage 5</span><strong>Testing the experience and preparing the next stage</strong></summary>
+            <div class="timeline-content"><p>The physical prototype and browser-based simulator were used together to refine the instructions, navigation, pressure curve, and result layout. The next stage is formal comparison with established laboratory equipment before clinical use.</p></div>
+          </details>
+        </article>
+      </div>
+    </section>
+
+    <section id="product" class="section">
+      <div class="section-heading reveal">
+        <p class="eyebrow">Final Product</p>
+        <h2>The Complete MIP and MEP Testing Workflow.</h2>
+      </div>
+
+      <div class="product-layout">
+        <div class="product-visual reveal">
+          <figure class="screenshot-frame">
+            <a href="https://rnsh-ui-simulator.vercel.app/" target="_blank" rel="noopener noreferrer">
+            <img src="assets/mip-summary-screenshot.png" alt="Aeris MIP results screen showing the pressure curve, repeatability, and test summary"/></a>
+          </figure>
+        </div>
+
+        <div class="product-copy reveal">
+          <div class="feature">
+            <span>01</span>
+            <div>
+              <h3>Clear test selection and instructions</h3>
+              <p>The clinician selects MIP or MEP, follows instructions written for that test, and moves through the same clear sequence for each repeated breathing effort.</p>
+            </div>
+          </div>
+
+          <div class="feature">
+            <span>02</span>
+            <div>
+              <h3>Live view of each breathing effort</h3>
+              <p>Each attempt is shown as a pressure curve, making it easier to review the shape and strength of the effort. The workflow can be controlled by touch or physical buttons.</p>
+            </div>
+          </div>
+
+          <div class="feature">
+            <span>03</span>
+            <div>
+              <h3>Automatic repeatability guidance</h3>
+              <p>
+                Aeris compares repeated attempts and clearly shows when three results meet the 10%
+                repeatability criterion, helping the clinician know when the test is consistent.
+              </p>
+            </div>
+          </div>
+
+          <div class="feature">
+            <span>04</span>
+            <div>
+              <h3>One clear result summary</h3>
+              <p>
+                The final screen brings the measured result, predicted comparison, repeatability,
+                attempt count, and test date and time together in one place.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section outcomes-section">
+      <div class="section-heading reveal">
+        <h2>A Foundation for Future Development.</h2>
+      </div>
+
+      <div class="outcome-grid">
+        <div class="outcome-card reveal">
+          <strong>Complete testing experience</strong>
+          <p>Aeris brings MIP and MEP selection, guided attempts, live pressure curves, repeatability checks, and results into one portable prototype.</p>
+        </div>
+        <div class="outcome-card reveal">
+          <strong>Clearer clinical workflow</strong>
+          <p>The physical prototype and browser-based simulator follow the same step-by-step experience, making the product easier to demonstrate, review, and refine.</p>
+        </div>
+        <div class="outcome-card reveal">
+          <strong>Validation pathway</strong>
+          <p>
+            The next stage is to compare Aeris with established laboratory equipment and review its
+            performance before it is considered for clinical use.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="team" class="section team-section">
+      <div class="section-heading reveal">
+        <p class="eyebrow">Project Team</p>
+        <h2>Meet the Team.</h2>
+      </div>
+      <div class="team-grid reveal" aria-label="Project team profile photos">
+        <article class="team-card">
+          <a href="https://www.linkedin.com/in/annabel-chaperon/" target="_blank" rel="noopener noreferrer">
+          <img src="assets/team/Annabel-linkedin.jfif"/>
+          <h3>Annabel Chaperon</h3></a>
+        </article>
+        <article class="team-card">
+          <a href="https://www.linkedin.com/in/alexan1016/" target="_blank" rel="noopener noreferrer">
+          <img src="assets/team/Alex-linkedin.png"/>
+          <h3>Alex An</h3></a>
+        </article>        
+        <article class="team-card">
+          <a href="https://www.linkedin.com/in/antony-lin01/" target="_blank" rel="noopener noreferrer">
+          <img src="assets/team/Tony-linkedin.png"/>
+          <h3>Antony Lin</h3></a>
+        </article>
+        <article class="team-card">
+          <a href="https://www.linkedin.com/in/binethatukorala/" target="_blank" rel="noopener noreferrer">
+          <img src="assets/team/Bineth-linkedin.jfif"/>
+          <h3>Bineth Mandiv Atukorala</h3></a>
+        </article>
+        <article class="team-card">
+          <a href="https://www.linkedin.com/in/rahul-narayanan-mtrn/" target="_blank" rel="noopener noreferrer">
+          <img src="assets/team/Rahul-linkedin.jfif"/>
+          <h3>Rahul Narayanan</h3></a>
+        </article>
+        <article class="team-card">
+          <a href="https://www.linkedin.com/in/sammyqduong/" target="_blank" rel="noopener noreferrer">
+          <img src="assets/team/Sammy-linkedin.jfif"/>
+          <h3>Sammy Q Duong</h3></a>
+        </article>
+      </div>
+
+    </section>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>

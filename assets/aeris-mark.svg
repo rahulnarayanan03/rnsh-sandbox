@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title>Aeris</title>
+  <defs>
+    <linearGradient id="aerisBlue" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#4a82ff"/>
+      <stop offset="1" stop-color="#214fc6"/>
+    </linearGradient>
+  </defs>
+  <rect x="2" y="2" width="60" height="60" rx="16" fill="url(#aerisBlue)"/>
+  <path fill="#fff" d="M16.5 49 27.2 15h9.5L47.5 49h-8.2l-2.1-7.4H27l-2.2 7.4h-8.3Zm12.4-13.3h6.1l-3.1-10.9-3 10.9Zm-1.8 2.7h9.7v5.7h-9.7v-5.7Z"/>
+</svg>
