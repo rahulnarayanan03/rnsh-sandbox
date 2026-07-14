@@ -23,8 +23,15 @@ function positionNavPill() {
 
   // The hero sits above the first navigable section, so no section should be
   // highlighted while the page is at the very top.
-  if (window.innerWidth <= 980 || window.scrollY < 80) {
+  if (window.scrollY < 80) {
     clearNavHighlight();
+    return;
+  }
+
+  // Compact layouts use the link background as the active indicator rather
+  // than the moving pill. Keep the active class intact on phones and tablets.
+  if (window.innerWidth <= 980) {
+    navPill.style.opacity = "0";
     return;
   }
 
