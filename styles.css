@@ -2495,3 +2495,102 @@ body {
     font-size: clamp(0.61rem, 2.3vw, 0.69rem);
   }
 }
+
+
+/* --------------------------------------------------------------------------
+   Cross-browser mobile viewport hardening
+   Keeps Samsung Internet and Safari on the real device-width layout instead
+   of allowing a desktop-sized canvas to be scaled down to fit the phone.
+   -------------------------------------------------------------------------- */
+html {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+main,
+header,
+section,
+nav,
+.hero,
+.section,
+.section-soft,
+.section-dark,
+.team-section {
+  min-width: 0;
+  max-width: 100%;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  max-width: 100%;
+}
+
+.site-header,
+.nav-pill,
+.glass-panel,
+.client-card,
+.brief-card,
+.product-visual,
+.outcome-card,
+.team-card {
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+}
+
+@supports (overflow: clip) {
+  html,
+  body {
+    overflow-x: clip;
+  }
+}
+
+@media (max-width: 980px) {
+  .site-header {
+    max-width: calc(100% - 20px);
+  }
+
+  .site-nav,
+  .site-nav.open {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 680px) {
+  html,
+  body {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .site-header {
+    right: auto;
+    left: 50%;
+    width: calc(100% - 12px);
+    max-width: calc(100% - 12px);
+  }
+
+  .section {
+    width: calc(100% - 28px);
+    max-width: calc(100% - 28px);
+  }
+
+  .section-soft,
+  .section-dark,
+  .team-section {
+    width: 100%;
+    max-width: 100%;
+  }
+}
