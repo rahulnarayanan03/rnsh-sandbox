@@ -28,13 +28,6 @@ function positionNavPill() {
     return;
   }
 
-  // Compact layouts use the link background as the active indicator rather
-  // than the moving pill. Keep the active class intact on phones and tablets.
-  if (window.innerWidth <= 980) {
-    navPill.style.opacity = "0";
-    return;
-  }
-
   const activeLink = document.querySelector(".site-nav a.active");
   if (!activeLink) {
     navPill.style.opacity = "0";
