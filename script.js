@@ -123,18 +123,10 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
-menuButton.addEventListener("click", () => {
-  const isOpen = siteNav.classList.toggle("open");
-  menuButton.classList.toggle("active", isOpen);
-  menuButton.setAttribute("aria-expanded", String(isOpen));
-  document.body.classList.toggle("menu-open", isOpen);
-});
-
+// Navigation remains visible at every screen size, so no mobile menu state is needed.
 navLinks.forEach((link) => {
   link.addEventListener("click", () => {
     siteNav.classList.remove("open");
-    menuButton.classList.remove("active");
-    menuButton.setAttribute("aria-expanded", "false");
     document.body.classList.remove("menu-open");
   });
 });
