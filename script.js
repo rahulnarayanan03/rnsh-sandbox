@@ -128,6 +128,37 @@ document.addEventListener("keydown", (event) => {
 let clickedNavSection = null;
 let clickedNavReleaseTimer = null;
 
+const desktopNavQuery = window.matchMedia("(min-width: 981px)");
+
+function getDocumentTop(element) {
+  let top = 0;
+  let current = element;
+
+  while (current) {
+    top += current.offsetTop;
+    current = current.offsetParent;
+  }
+
+  return top;
+}
+
+function getSectionContentMarker(section) {
+  return section.querySelector(".section-heading") || section;
+}
+
+function getSectionTrackingTop(section) {
+  if (!desktopNavQuery.matches) {
+    return section.getBoundingClientRect().top;
+  }
+
+  return getDocumentTop(getSectionContentMarker(section)) - window.scrollY;
+}
+
+function getDesktopContentGap() {
+  if (window.innerWidth >= 2200) return 64;
+  return 48;
+}
+
 function releaseClickedNavSection() {
   if (!clickedNavSection) return;
   clickedNavSection = null;
@@ -149,7 +180,18 @@ navLinks.forEach((link) => {
 
     const headerBottom = siteHeader.getBoundingClientRect().bottom;
     const targetTop = targetSection.getBoundingClientRect().top + window.scrollY;
-    const scrollTop = Math.max(0, targetTop - headerBottom - 10);
+    let scrollTop = Math.max(0, targetTop - headerBottom - 10);
+
+    // On laptop and larger screens, align the section's visible heading rather
+    // than the invisible top edge of its padded container. This keeps the
+    // heading close to the fixed navbar and makes the highlighted item match
+    // what the user is actually looking at. Team keeps its existing bottom-of-
+    // page behaviour because the browser naturally clamps that final scroll.
+    if (desktopNavQuery.matches && sectionId !== "team") {
+      const contentTop = getDocumentTop(getSectionContentMarker(targetSection));
+      scrollTop = Math.max(0, contentTop - headerBottom - getDesktopContentGap());
+    }
+
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     clickedNavSection = sectionId;
@@ -212,7 +254,7 @@ function updateActiveSection() {
   }
 
   const headerBottom = siteHeader?.getBoundingClientRect().bottom ?? 0;
-  const sectionBoundary = headerBottom + 24;
+  const sectionBoundary = headerBottom + (desktopNavQuery.matches ? getDesktopContentGap() + 8 : 24);
   const firstSection = sections[0];
   const lastSection = sections[sections.length - 1];
   const pageBottom = window.scrollY + window.innerHeight;
@@ -226,7 +268,7 @@ function updateActiveSection() {
     return;
   }
 
-  if (!firstSection || firstSection.getBoundingClientRect().top > sectionBoundary) {
+  if (!firstSection || getSectionTrackingTop(firstSection) > sectionBoundary) {
     clearNavHighlight();
     return;
   }
@@ -234,7 +276,7 @@ function updateActiveSection() {
   let activeSection = firstSection;
 
   sections.forEach((section) => {
-    if (section.getBoundingClientRect().top <= sectionBoundary) {
+    if (getSectionTrackingTop(section) <= sectionBoundary) {
       activeSection = section;
     }
   });

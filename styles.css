@@ -2613,3 +2613,15 @@ svg {
     scroll-margin-top: 98px;
   }
 }
+
+/* Desktop section framing
+   Keep each navigable chapter at least one viewport tall so that selecting a
+   navbar item presents that section cleanly without revealing the beginning
+   of the next section at the bottom of the screen. Longer sections retain
+   their natural height. Team keeps its existing bottom-of-page behaviour. */
+@media (min-width: 981px) {
+  main > section.section[id]:not(#team) {
+    min-height: 100vh;
+    min-height: 100svh;
+  }
+}

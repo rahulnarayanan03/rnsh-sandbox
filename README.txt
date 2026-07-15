@@ -55,3 +55,8 @@ LATEST UPDATE V7
 LATEST UPDATE V8
 - Reworked the top navigation into a lower-opacity Liquid Glass-style surface.
 - Added stronger backdrop blur, saturation, refracted highlights, inner edges, and dark-mode glass treatment.
+
+GPT-7 update:
+- On laptop and larger displays, each navigable section except Team now has a minimum height of one viewport.
+- This prevents the next section from appearing at the bottom immediately after using the navbar.
+- Sections with more content remain naturally taller than the viewport.
