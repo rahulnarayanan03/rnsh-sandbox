@@ -18,6 +18,12 @@
   --radius-lg: 32px;
   --radius-md: 20px;
   --radius-sm: 12px;
+  --glass-border-light: rgba(255, 255, 255, 0.55);
+  --glass-border-dark: rgba(211, 228, 255, 0.22);
+  --glass-sheen-light: rgba(255, 255, 255, 0.72);
+  --glass-sheen-dark: rgba(194, 216, 255, 0.2);
+  --glass-body-light: rgba(225, 235, 248, 0.18);
+  --glass-body-dark: rgba(7, 17, 31, 0.4);
 }
 
 html[data-theme="dark"] {
@@ -452,37 +458,103 @@ p {
 }
 
 .button {
+  position: relative;
+  overflow: hidden;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 50px;
+  min-height: 52px;
   padding: 0 22px;
-  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 16px;
   font-weight: 700;
-  transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+  letter-spacing: -0.01em;
+  isolation: isolate;
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  box-shadow:
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.38),
+    inset 0 -10px 16px -12px rgba(0, 0, 0, 0.35),
+    0 14px 30px rgba(8, 20, 36, 0.18);
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease, background 180ms ease;
 }
 
-.button:hover {
+.button::before,
+.button::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.button::before {
+  border-radius: inherit;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.34) 0%, rgba(255, 255, 255, 0.08) 34%, rgba(255, 255, 255, 0.02) 100%);
+  opacity: 0.9;
+}
+
+.button::after {
+  inset: 1px;
+  border-radius: inherit;
+  background: linear-gradient(102deg, transparent 28%, rgba(255, 255, 255, 0.34) 50%, transparent 72%);
+  background-size: 240% 100%;
+  background-position: 120% 0;
+  opacity: 0.5;
+  transition: background-position 520ms ease, opacity 220ms ease;
+}
+
+.button:hover,
+.button:focus-visible {
   transform: translateY(-2px);
+  box-shadow:
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.46),
+    inset 0 -10px 16px -12px rgba(0, 0, 0, 0.38),
+    0 18px 36px rgba(8, 20, 36, 0.24);
+}
+
+.button:hover::after,
+.button:focus-visible::after {
+  background-position: -15% 0;
+  opacity: 0.72;
 }
 
 .button-primary {
   color: #ffffff;
-  background: #2f6df6;
-  box-shadow: 0 14px 28px rgba(47, 109, 246, 0.24);
+  border-color: rgba(170, 203, 255, 0.35);
+  background:
+    radial-gradient(circle at 20% 18%, rgba(255, 255, 255, 0.24), transparent 32%),
+    linear-gradient(145deg, rgba(96, 150, 255, 0.95), rgba(47, 109, 246, 0.92) 54%, rgba(41, 83, 195, 0.95));
+  box-shadow:
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.3),
+    inset 0 -12px 16px -14px rgba(7, 23, 56, 0.55),
+    0 16px 34px rgba(47, 109, 246, 0.28),
+    0 0 26px rgba(88, 144, 255, 0.16);
 }
 
-.button-primary:hover {
-  background: #1e4fc5;
+.button-primary:hover,
+.button-primary:focus-visible {
+  border-color: rgba(196, 219, 255, 0.48);
+  box-shadow:
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -12px 16px -14px rgba(7, 23, 56, 0.58),
+    0 20px 38px rgba(47, 109, 246, 0.34),
+    0 0 30px rgba(88, 144, 255, 0.22);
 }
 
 .button-secondary {
-  border: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.65);
+  color: var(--ink);
+  border-color: rgba(255, 255, 255, 0.45);
+  background:
+    radial-gradient(circle at 20% 18%, rgba(255, 255, 255, 0.25), transparent 28%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.54), rgba(235, 241, 250, 0.24));
 }
 
 html[data-theme="dark"] .button-secondary {
-  background: rgba(255, 255, 255, 0.06);
+  color: #f3f8ff;
+  border-color: rgba(211, 228, 255, 0.18);
+  background:
+    radial-gradient(circle at 20% 18%, rgba(168, 197, 255, 0.16), transparent 28%),
+    linear-gradient(145deg, rgba(160, 192, 255, 0.12), rgba(7, 17, 31, 0.48));
 }
 
 .hero-panel {
@@ -711,8 +783,8 @@ html[data-theme="dark"] .detail-dialog-panel {
 }
 
 .floating-card-two {
-  bottom: 28px;
-  left: -12px;
+  bottom: -18px;
+  left: -54px;
 }
 
 .stats-strip {
@@ -2539,15 +2611,353 @@ svg {
   max-width: 100%;
 }
 
-.site-header,
-.nav-pill,
-.glass-panel,
+/* --------------------------------------------------------------------------
+   Apple-inspired Liquid Glass surfaces
+   Keeps the existing layout intact while replacing the heavier acrylic cards
+   with clearer, layered glass, soft refraction and brighter edge highlights.
+   -------------------------------------------------------------------------- */
+
+/* Buttons use tinted glass rather than flat fills. */
+.button {
+  border-color: rgba(213, 229, 255, 0.24);
+  border-radius: 18px;
+  background-clip: padding-box;
+  -webkit-backdrop-filter: blur(22px) saturate(185%) brightness(1.05);
+  backdrop-filter: blur(22px) saturate(185%) brightness(1.05);
+  box-shadow:
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.42),
+    inset 0 -1px 0 rgba(25, 54, 106, 0.3),
+    inset 1px 0 0 rgba(255, 255, 255, 0.13),
+    0 14px 30px rgba(5, 16, 34, 0.18),
+    0 0 0 1px rgba(255, 255, 255, 0.025);
+}
+
+.button::before {
+  background:
+    radial-gradient(90% 120% at 14% -26%, rgba(255, 255, 255, 0.5), transparent 51%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.15), transparent 46%);
+  opacity: 0.9;
+}
+
+.button::after {
+  inset: -45% auto -45% -34%;
+  width: 28%;
+  border-radius: 50%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.52), transparent);
+  filter: blur(8px);
+  opacity: 0.38;
+  transform: rotate(12deg);
+  transition: left 720ms cubic-bezier(0.22, 1, 0.36, 1), opacity 220ms ease;
+}
+
+.button:hover::after,
+.button:focus-visible::after {
+  left: 108%;
+  opacity: 0.58;
+}
+
+.button-primary {
+  border-color: rgba(192, 217, 255, 0.34);
+  background:
+    radial-gradient(120% 150% at 12% -40%, rgba(255, 255, 255, 0.42), transparent 48%),
+    radial-gradient(90% 110% at 100% 120%, rgba(50, 95, 210, 0.46), transparent 60%),
+    linear-gradient(145deg, rgba(105, 159, 255, 0.94), rgba(43, 105, 245, 0.84) 52%, rgba(35, 79, 191, 0.9));
+  box-shadow:
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 0 rgba(10, 34, 89, 0.56),
+    0 16px 34px rgba(47, 109, 246, 0.27),
+    0 0 28px rgba(86, 143, 255, 0.15);
+}
+
+.button-secondary {
+  border-color: rgba(211, 228, 255, 0.3);
+  background:
+    radial-gradient(100% 140% at 14% -34%, rgba(255, 255, 255, 0.54), transparent 48%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.38), rgba(225, 235, 248, 0.12));
+}
+
+html[data-theme="dark"] .button-secondary {
+  border-color: rgba(211, 228, 255, 0.22);
+  background:
+    radial-gradient(110% 140% at 14% -34%, rgba(205, 225, 255, 0.2), transparent 48%),
+    radial-gradient(80% 100% at 100% 120%, rgba(69, 111, 210, 0.14), transparent 58%),
+    linear-gradient(145deg, rgba(153, 188, 255, 0.1), rgba(7, 17, 31, 0.25));
+}
+
+/* Main transparent surfaces. */
+.device-shell,
+.floating-card,
 .client-card,
 .brief-card,
 .product-visual,
 .outcome-card,
 .team-card {
-  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  isolation: isolate;
+  overflow: hidden;
+  border-color: rgba(255, 255, 255, 0.5);
+  background:
+    radial-gradient(105% 92% at 7% -12%, rgba(255, 255, 255, 0.46), transparent 48%),
+    radial-gradient(90% 75% at 105% 112%, rgba(103, 151, 255, 0.15), transparent 58%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0.09) 42%, rgba(222, 234, 251, 0.08)),
+    rgba(225, 235, 248, 0.1);
+  -webkit-backdrop-filter: blur(28px) saturate(190%) brightness(1.04);
+  backdrop-filter: blur(28px) saturate(190%) brightness(1.04);
+  box-shadow:
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.84),
+    inset 0 -1px 0 rgba(77, 104, 151, 0.18),
+    inset 1px 0 0 rgba(255, 255, 255, 0.25),
+    inset -1px 0 0 rgba(255, 255, 255, 0.07),
+    0 18px 46px rgba(9, 22, 41, 0.1),
+    0 0 0 1px rgba(255, 255, 255, 0.035);
+  transition:
+    transform 260ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 260ms ease,
+    box-shadow 260ms ease,
+    background 260ms ease;
+}
+
+html[data-theme="dark"] .device-shell,
+html[data-theme="dark"] .floating-card,
+html[data-theme="dark"] .client-card,
+html[data-theme="dark"] .brief-card,
+html[data-theme="dark"] .product-visual,
+html[data-theme="dark"] .outcome-card,
+html[data-theme="dark"] .team-card {
+  border-color: rgba(205, 224, 255, 0.23);
+  background:
+    radial-gradient(110% 95% at 7% -14%, rgba(211, 229, 255, 0.16), transparent 48%),
+    radial-gradient(92% 78% at 105% 112%, rgba(65, 113, 225, 0.2), transparent 58%),
+    linear-gradient(145deg, rgba(146, 183, 255, 0.105), rgba(255, 255, 255, 0.025) 42%, rgba(76, 116, 200, 0.035)),
+    rgba(7, 17, 31, 0.25);
+  -webkit-backdrop-filter: blur(30px) saturate(195%) brightness(1.06);
+  backdrop-filter: blur(30px) saturate(195%) brightness(1.06);
+  box-shadow:
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.25),
+    inset 0 -1px 0 rgba(30, 61, 119, 0.38),
+    inset 1px 0 0 rgba(214, 231, 255, 0.065),
+    inset -1px 0 0 rgba(124, 164, 240, 0.035),
+    0 20px 48px rgba(0, 0, 0, 0.34),
+    0 0 32px rgba(77, 126, 236, 0.045);
+}
+
+.device-shell::before,
+.floating-card::before,
+.client-card::before,
+.brief-card::before,
+.product-visual::before,
+.outcome-card::before,
+.team-card::before,
+.device-shell::after,
+.floating-card::after,
+.client-card::after,
+.brief-card::after,
+.product-visual::after,
+.outcome-card::after,
+.team-card::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+
+/* Soft lensing and top-edge refraction. */
+.device-shell::before,
+.floating-card::before,
+.client-card::before,
+.brief-card::before,
+.product-visual::before,
+.outcome-card::before,
+.team-card::before {
+  z-index: 0;
+  inset: 1px;
+  border-radius: inherit;
+  background:
+    radial-gradient(120% 88% at 0% 0%, rgba(255, 255, 255, 0.24), transparent 45%),
+    radial-gradient(85% 70% at 100% 100%, rgba(79, 130, 242, 0.1), transparent 58%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.12), transparent 34%);
+  opacity: 0.9;
+}
+
+html[data-theme="dark"] .device-shell::before,
+html[data-theme="dark"] .floating-card::before,
+html[data-theme="dark"] .client-card::before,
+html[data-theme="dark"] .brief-card::before,
+html[data-theme="dark"] .product-visual::before,
+html[data-theme="dark"] .outcome-card::before,
+html[data-theme="dark"] .team-card::before {
+  background:
+    radial-gradient(120% 88% at 0% 0%, rgba(193, 216, 255, 0.12), transparent 45%),
+    radial-gradient(85% 70% at 100% 100%, rgba(67, 116, 228, 0.12), transparent 58%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.035), transparent 34%);
+}
+
+/* Narrow specular reflection, visible at rest and gliding on hover. */
+.device-shell::after,
+.floating-card::after,
+.client-card::after,
+.brief-card::after,
+.product-visual::after,
+.outcome-card::after,
+.team-card::after {
+  z-index: 0;
+  top: -42%;
+  bottom: -42%;
+  left: -32%;
+  width: 25%;
+  border-radius: 50%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.34), transparent);
+  filter: blur(11px);
+  opacity: 0.3;
+  transform: rotate(13deg);
+  transition: left 850ms cubic-bezier(0.22, 1, 0.36, 1), opacity 240ms ease;
+}
+
+html[data-theme="dark"] .device-shell::after,
+html[data-theme="dark"] .floating-card::after,
+html[data-theme="dark"] .client-card::after,
+html[data-theme="dark"] .brief-card::after,
+html[data-theme="dark"] .product-visual::after,
+html[data-theme="dark"] .outcome-card::after,
+html[data-theme="dark"] .team-card::after {
+  background: linear-gradient(90deg, transparent, rgba(198, 220, 255, 0.2), transparent);
+  opacity: 0.24;
+}
+
+.device-shell > *,
+.floating-card > *,
+.client-card > *,
+.brief-card > *,
+.product-visual > *,
+.outcome-card > *,
+.team-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .floating-card:hover,
+  .client-card:hover,
+  .brief-card:hover,
+  .product-visual:hover,
+  .outcome-card:hover,
+  .team-card:hover {
+    transform: translateY(-4px) scale(1.002);
+    border-color: rgba(225, 238, 255, 0.34);
+    box-shadow:
+      inset 0 1.5px 0 rgba(255, 255, 255, 0.31),
+      inset 0 -1px 0 rgba(30, 61, 119, 0.36),
+      0 24px 54px rgba(0, 0, 0, 0.38),
+      0 0 34px rgba(86, 137, 255, 0.075);
+  }
+
+  .device-shell:hover::after,
+  .floating-card:hover::after,
+  .client-card:hover::after,
+  .brief-card:hover::after,
+  .product-visual:hover::after,
+  .outcome-card:hover::after,
+  .team-card:hover::after {
+    left: 108%;
+    opacity: 0.48;
+  }
+}
+
+/* Hero mock-up and its floating callouts. */
+.device-shell {
+  border-radius: 36px;
+  background:
+    radial-gradient(115% 95% at 5% -15%, rgba(180, 210, 255, 0.2), transparent 45%),
+    radial-gradient(100% 80% at 110% 110%, rgba(55, 105, 218, 0.18), transparent 56%),
+    linear-gradient(145deg, rgba(65, 95, 140, 0.22), rgba(10, 26, 45, 0.72) 50%, rgba(12, 31, 54, 0.58));
+}
+
+.floating-card {
+  border-radius: 22px;
+}
+
+/* Project-summary strip uses the same material without replacing its ambient
+   pseudo-elements, which already provide the colour behind the glass. */
+.stats-strip {
+  border-color: rgba(205, 224, 255, 0.22);
+  background:
+    radial-gradient(100% 130% at 8% -28%, rgba(207, 226, 255, 0.15), transparent 48%),
+    radial-gradient(70% 100% at 100% 120%, rgba(62, 109, 215, 0.14), transparent 58%),
+    linear-gradient(145deg, rgba(133, 170, 241, 0.085), rgba(255, 255, 255, 0.018)),
+    rgba(7, 17, 31, 0.24);
+  -webkit-backdrop-filter: blur(30px) saturate(190%) brightness(1.05);
+  backdrop-filter: blur(30px) saturate(190%) brightness(1.05);
+  box-shadow:
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -1px 0 rgba(30, 61, 119, 0.36),
+    0 20px 48px rgba(0, 0, 0, 0.3),
+    0 0 30px rgba(77, 126, 236, 0.04);
+}
+
+html:not([data-theme="dark"]) .stats-strip {
+  border-color: rgba(255, 255, 255, 0.5);
+  background:
+    radial-gradient(100% 130% at 8% -28%, rgba(255, 255, 255, 0.52), transparent 48%),
+    radial-gradient(70% 100% at 100% 120%, rgba(103, 151, 255, 0.13), transparent 58%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.32), rgba(225, 235, 248, 0.09)),
+    rgba(225, 235, 248, 0.1);
+}
+
+/* Smaller elements inherit the same glass language. */
+.card-number {
+  border-color: rgba(214, 231, 255, 0.25);
+  border-radius: 15px;
+  background:
+    radial-gradient(100% 130% at 18% -28%, rgba(255, 255, 255, 0.36), transparent 50%),
+    linear-gradient(145deg, rgba(170, 201, 255, 0.16), rgba(84, 130, 226, 0.08));
+  -webkit-backdrop-filter: blur(18px) saturate(190%);
+  backdrop-filter: blur(18px) saturate(190%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    inset 0 -1px 0 rgba(29, 60, 119, 0.26),
+    0 8px 18px rgba(0, 0, 0, 0.13);
+}
+
+.client-image,
+.team-card img,
+.screenshot-frame {
+  border: 1px solid rgba(218, 233, 255, 0.18);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.team-card {
+  border-radius: 24px;
+}
+
+.team-card img {
+  border-radius: 17px;
+}
+
+.product-visual {
+  border-radius: 30px;
+  padding: 16px;
+}
+
+.client-card {
+  border-radius: 36px;
+}
+
+.brief-card,
+.outcome-card {
+  border-radius: 24px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button::after,
+  .device-shell::after,
+  .floating-card::after,
+  .client-card::after,
+  .brief-card::after,
+  .product-visual::after,
+  .outcome-card::after,
+  .team-card::after {
+    transition: none;
+  }
 }
 
 @supports (overflow: clip) {
