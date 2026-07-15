@@ -2625,3 +2625,79 @@ svg {
     min-height: 100svh;
   }
 }
+
+/* --------------------------------------------------------------------------
+   Mobile hero diagram restoration
+   Preserve the full desktop composition on phones by keeping both feature
+   callouts visible around the central Aeris device instead of hiding them.
+   -------------------------------------------------------------------------- */
+@media (max-width: 680px) {
+  .hero-panel {
+    min-height: 410px;
+    width: 100%;
+    display: block;
+    padding: 28px 0 58px;
+    overflow: visible;
+  }
+
+  .hero-panel::before {
+    inset: 6% 0 4%;
+  }
+
+  .device-shell {
+    width: min(82%, 326px);
+    margin: 0 auto;
+  }
+
+  .floating-card {
+    display: block;
+    width: clamp(142px, 43vw, 166px);
+    padding: 12px 13px;
+    border-radius: 15px;
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    backdrop-filter: blur(16px) saturate(160%);
+  }
+
+  .floating-card span {
+    font-size: 0.68rem;
+  }
+
+  .floating-card p {
+    margin-top: 5px;
+    font-size: 0.76rem;
+    line-height: 1.28;
+  }
+
+  .floating-card-one {
+    top: 0;
+    right: 0;
+  }
+
+  .floating-card-two {
+    top: auto;
+    right: auto;
+    bottom: 0;
+    left: 0;
+  }
+}
+
+@media (max-width: 390px) {
+  .hero-panel {
+    min-height: 394px;
+    padding-top: 24px;
+    padding-bottom: 54px;
+  }
+
+  .device-shell {
+    width: min(84%, 304px);
+  }
+
+  .floating-card {
+    width: clamp(136px, 42vw, 154px);
+    padding: 10px 11px;
+  }
+
+  .floating-card p {
+    font-size: 0.72rem;
+  }
+}
