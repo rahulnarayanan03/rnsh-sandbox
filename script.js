@@ -147,10 +147,8 @@ function getSectionContentMarker(section) {
 }
 
 function getSectionTrackingTop(section) {
-  if (!desktopNavQuery.matches) {
-    return section.getBoundingClientRect().top;
-  }
-
+  // Track the visible section heading on every display size. This prevents the
+  // previous section from remaining visible behind the translucent phone nav.
   return getDocumentTop(getSectionContentMarker(section)) - window.scrollY;
 }
 
@@ -188,14 +186,14 @@ navLinks.forEach((link) => {
     const targetTop = targetSection.getBoundingClientRect().top + window.scrollY;
     let scrollTop = Math.max(0, targetTop - headerBottom - 10);
 
-    // On laptop and larger screens, align the section's visible heading rather
-    // than the invisible top edge of its padded container. This keeps the
-    // heading close to the fixed navbar and makes the highlighted item match
-    // what the user is actually looking at. Team keeps its existing bottom-of-
-    // page behaviour because the browser naturally clamps that final scroll.
-    if (desktopNavQuery.matches && sectionId !== "team") {
+    // Align the visible heading rather than the padded section edge. Phones use
+    // a compact gap below the two-row navbar, while desktop keeps its existing
+    // per-section offsets. Team retains the bottom-of-page clamping behaviour.
+    if (sectionId !== "team") {
       const contentTop = getDocumentTop(getSectionContentMarker(targetSection));
-      const sectionGap = getDesktopContentGap() + getSectionDesktopOffset(sectionId);
+      const sectionGap = desktopNavQuery.matches
+        ? getDesktopContentGap() + getSectionDesktopOffset(sectionId)
+        : 18;
       scrollTop = Math.max(0, contentTop - headerBottom - sectionGap);
     }
 
