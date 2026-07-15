@@ -163,7 +163,7 @@ const sectionDesktopOffsets = {
   brief: -45,
   development: -45,
   product: -35,
-  team: 0
+  team: -40
 };
 
 function getSectionDesktopOffset(sectionId) {
