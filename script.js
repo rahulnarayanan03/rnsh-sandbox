@@ -157,10 +157,17 @@ function getDesktopContentGap() {
   return 48;
 }
 
+const sectionDesktopOffsets = {
+  overview: -35,
+  client: -35,
+  brief: -35,
+  development: -35,
+  product: -35,
+  team: 0
+};
+
 function getSectionDesktopOffset(sectionId) {
-  // Move the Final Product chapter higher in the laptop/desktop viewport so
-  // all four workflow points can be read without an extra scroll.
-  return sectionId === "product" ? -35 : 0;
+  return sectionDesktopOffsets[sectionId] ?? 0;
 }
 
 function releaseClickedNavSection() {
