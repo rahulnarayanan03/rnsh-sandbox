@@ -159,6 +159,12 @@ function getDesktopContentGap() {
   return 48;
 }
 
+function getSectionDesktopOffset(sectionId) {
+  // Move the Final Product chapter higher in the laptop/desktop viewport so
+  // all four workflow points can be read without an extra scroll.
+  return sectionId === "product" ? -100 : 0;
+}
+
 function releaseClickedNavSection() {
   if (!clickedNavSection) return;
   clickedNavSection = null;
@@ -189,7 +195,8 @@ navLinks.forEach((link) => {
     // page behaviour because the browser naturally clamps that final scroll.
     if (desktopNavQuery.matches && sectionId !== "team") {
       const contentTop = getDocumentTop(getSectionContentMarker(targetSection));
-      scrollTop = Math.max(0, contentTop - headerBottom - getDesktopContentGap());
+      const sectionGap = getDesktopContentGap() + getSectionDesktopOffset(sectionId);
+      scrollTop = Math.max(0, contentTop - headerBottom - sectionGap);
     }
 
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -276,7 +283,8 @@ function updateActiveSection() {
   let activeSection = firstSection;
 
   sections.forEach((section) => {
-    if (getSectionTrackingTop(section) <= sectionBoundary) {
+    const sectionOffset = desktopNavQuery.matches ? getSectionDesktopOffset(section.id) : 0;
+    if (getSectionTrackingTop(section) <= sectionBoundary + sectionOffset) {
       activeSection = section;
     }
   });
