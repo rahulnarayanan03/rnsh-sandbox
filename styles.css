@@ -2772,7 +2772,9 @@ svg {
 
   .hero-panel .screen-button span {
     margin-top: 6px;
-    font-size: 0.61rem;
+    font-size: 0.56rem;
+    line-height: 1.1;
+    white-space: nowrap;
   }
 
   .hero-panel .screen-footer {
@@ -2809,8 +2811,8 @@ svg {
   .hero-panel .floating-card-two {
     top: auto;
     right: auto;
-    bottom: 0;
-    left: 0;
+    bottom: -2%;
+    left: -4%;
   }
 }
 
@@ -2824,6 +2826,15 @@ svg {
     width: min(73%, 282px);
   }
 
+  .hero-panel .floating-card-two {
+    left: -5%;
+    bottom: -3%;
+  }
+
+  .hero-panel .screen-button span {
+    font-size: 0.53rem;
+  }
+
   .hero-panel .floating-card {
     width: clamp(118px, 35vw, 136px);
     padding: 9px 10px;
@@ -2831,5 +2842,51 @@ svg {
 
   .hero-panel .floating-card p {
     font-size: 0.64rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Mobile hero diagram polish
+   Keep the result callout clear of the device footer and hold both footer
+   labels on one line across phone widths.
+   -------------------------------------------------------------------------- */
+@media (max-width: 680px) {
+  .hero-panel {
+    margin-bottom: clamp(22px, 6vw, 34px);
+  }
+
+  .hero-panel .screen-footer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    white-space: nowrap;
+  }
+
+  .hero-panel .screen-footer span {
+    min-width: 0;
+    white-space: nowrap;
+  }
+
+  .hero-panel .floating-card-two {
+    left: -2%;
+    bottom: -10%;
+  }
+}
+
+@media (max-width: 390px) {
+  .hero-panel {
+    margin-bottom: 32px;
+  }
+
+  .hero-panel .screen-footer {
+    gap: 5px;
+    font-size: 0.48rem;
+  }
+
+  .hero-panel .floating-card-two {
+    left: -3%;
+    bottom: -11%;
   }
 }
