@@ -162,7 +162,7 @@ function getDesktopContentGap() {
 function getSectionDesktopOffset(sectionId) {
   // Move the Final Product chapter higher in the laptop/desktop viewport so
   // all four workflow points can be read without an extra scroll.
-  return sectionId === "product" ? 50 : 0;
+  return sectionId === "product" ? 25 : 0;
 }
 
 function releaseClickedNavSection() {
