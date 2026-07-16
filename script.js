@@ -83,6 +83,9 @@ const menuButton = document.querySelector(".menu-button");
 const siteNav = document.querySelector(".site-nav");
 const siteHeader = document.querySelector(".site-header");
 const navLinks = document.querySelectorAll(".site-nav a");
+const sectionJumpLinks = document.querySelectorAll(
+  ".site-nav a[href^=\"#\"], .hero-actions a[href^=\"#\"]"
+);
 const navPill = document.querySelector(".nav-pill");
 const sections = document.querySelectorAll("main section[id]");
 const themeToggle = document.querySelector(".theme-toggle");
@@ -318,7 +321,7 @@ function releaseClickedNavSection() {
   requestNavUpdate();
 }
 
-navLinks.forEach((link) => {
+sectionJumpLinks.forEach((link) => {
   link.addEventListener("click", (event) => {
     const sectionId = link
       .getAttribute("href")
