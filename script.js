@@ -179,21 +179,20 @@ const detailButtons = document.querySelectorAll("[data-detail]");
 
 const detailContent = {
   workflow: {
-    title: "Guided MIP and MEP testing",
+    title: "Two guided breathing strength tests",
     copy:
-      "The clinician selects MIP or MEP, follows the instructions " +
-      "for that test, completes repeated breathing efforts, and " +
-      "reviews the result. Aeris keeps the journey consistent and " +
-      "clearly shows when three attempts meet the 10% repeatability " +
-      "criterion."
+      "Choose breathing-in strength (MIP) or breathing-out strength " +
+      "(MEP), follow clear instructions, complete three tries, and " +
+      "review the result. Aeris shows when the readings are close " +
+      "enough together to trust."
   },
 
   results: {
-    title: "Clear results and repeatability checks",
+    title: "Clear results you can trust",
     copy:
-      "The result screen combines the pressure curve, measured " +
-      "result, predicted comparison, repeatability outcome, attempt " +
-      "count, and test time. This gives the clinician a complete " +
+      "The result screen combines a live graph, final reading, " +
+      "comparison with expected values, consistency check, number " +
+      "of tries, and test time. This gives the clinician a complete " +
       "view of the test in one place."
   }
 };
