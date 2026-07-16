@@ -21,7 +21,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="styles.css?v=20260716-plain-language-1" />
+  <link rel="stylesheet" href="styles.css?v=20260716-concise-mobile-1" />
   <style>
 
     .client-card {
@@ -51,6 +51,25 @@
       }
     }
 
+    .product-outcomes {
+      margin-top: clamp(48px, 6vw, 88px);
+      padding-top: clamp(30px, 4vw, 52px);
+      border-top: 1px solid var(--line);
+    }
+
+    .product-outcomes-heading {
+      max-width: 720px;
+      margin-bottom: 28px;
+    }
+
+    .product-outcomes-heading h3 {
+      margin: 0;
+      font-family: "Manrope", sans-serif;
+      font-size: clamp(1.8rem, 3.4vw, 3rem);
+      line-height: 1.08;
+      letter-spacing: -0.04em;
+    }
+
     @media (max-width: 680px) {
       .client-card {
         grid-template-columns: 1fr;
@@ -63,6 +82,85 @@
 
       .client-image img {
         object-position: center 46%;
+      }
+
+      #overview .section-content p,
+      #client .client-card p {
+        margin-bottom: 0;
+      }
+
+      #overview .section-content p + p,
+      #client .client-card p + p {
+        margin-top: 14px;
+      }
+
+      .brief-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .brief-card {
+        min-height: 0;
+        padding: 16px 14px;
+        border-radius: 18px;
+      }
+
+      .brief-card .card-number {
+        width: 36px;
+        height: 36px;
+        margin-bottom: 18px;
+        border-radius: 12px;
+        font-size: 0.72rem;
+      }
+
+      .brief-card h3 {
+        margin-bottom: 8px;
+        font-size: 0.96rem;
+        line-height: 1.22;
+      }
+
+      .brief-card p {
+        margin: 0;
+        font-size: 0.82rem;
+        line-height: 1.42;
+      }
+
+      .product-outcomes {
+        margin-top: 38px;
+        padding-top: 26px;
+      }
+
+      .product-outcomes-heading {
+        margin-bottom: 18px;
+      }
+
+      .product-outcomes-heading h3 {
+        font-size: 1.72rem;
+      }
+
+      .product-outcomes .outcome-grid {
+        gap: 10px;
+      }
+
+      .product-outcomes .outcome-card {
+        padding: 16px;
+        border-radius: 18px;
+      }
+
+      .product-outcomes .outcome-card strong {
+        font-size: 1rem;
+      }
+
+      .product-outcomes .outcome-card p {
+        margin-top: 6px;
+        font-size: 0.86rem;
+        line-height: 1.42;
+      }
+    }
+
+    @media (max-width: 340px) {
+      .brief-grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -190,24 +288,15 @@
     <section id="overview" class="section section-grid">
       <div class="section-heading reveal">
         <p class="eyebrow">Product Overview</p>
-        <h2>The Core Test, Without the Usual Cost.</h2>
+        <h2>Breathing Strength Testing, Simplified.</h2>
       </div>
 
       <div class="section-content reveal">
         <p class="lead">
-          Laboratory systems for breathing strength testing can cost over $75,000, while portable alternatives
-          can still cost around $3,000. Aeris is designed to bring the essential testing experience into one
-          portable product at a much lower price point.
+          Aeris brings breathing-in and breathing-out strength testing into one portable system designed to reduce reliance on costly specialised equipment.
         </p>
         <p>
-          Maximum Inspiratory Pressure (MIP) measures breathing-in strength, while Maximum Expiratory Pressure
-          (MEP) measures breathing-out strength. Aeris guides both tests through the same clear process, from choosing
-          the test and following instructions to completing repeated tries and reviewing the final reading.
-        </p>
-        <p>
-          A live graph shows each breathing effort as it happens. Aeris compares repeated tries and tells the clinician
-          when the readings are close enough together to be considered consistent. The final screen shows the reading,
-          how it compares with expected values, the number of tries, and the test time.
+          Choose the test, follow guided steps, view each effort on a live graph, and see when three readings are close enough to trust. The final screen brings the result, expected-value comparison, number of tries, and test time together.
         </p>
       </div>
     </section>
@@ -215,8 +304,8 @@
     <section id="client" class="section section-dark">
       <div class="client-layout">
         <div class="section-heading reveal">
-        <p class="eyebrow">Client</p>
-        <h2>Built Around a Real Clinical Need.</h2>
+          <p class="eyebrow">Client</p>
+          <h2>Built for a Real Clinical Need.</h2>
         </div>
 
         <div class="client-card reveal">
@@ -225,15 +314,10 @@
           </figure>
           <div>
             <p class="lead">
-              The Respiratory Investigation Unit at Royal North Shore Hospital asked for a more accessible way to test
-              breathing muscle strength without relying entirely on laboratory systems costing over $75,000.
+              Royal North Shore Hospital asked for a more accessible way to test breathing strength without relying on high-cost laboratory systems.
             </p>
             <p>
-              Aeris turns that brief into one portable system for breathing-in and breathing-out strength tests,
-              guided tries, a live graph, and clear results.
-            </p>
-            <p>
-              Designed for respiratory laboratories, speech pathology clinics, and breathing rehabilitation programs.
+              Optik shaped Aeris around that brief for respiratory labs, speech and breathing clinics, and rehabilitation programs.
             </p>
           </div>
         </div>
@@ -243,57 +327,44 @@
     <section id="brief" class="section">
       <div class="section-heading reveal">
         <p class="eyebrow">Project Brief</p>
-        <h2>Making Breathing Strength Testing Easier to Access.</h2>
+        <h2>Six Goals. One Clear Product.</h2>
       </div>
 
       <div class="brief-grid">
         <article class="brief-card reveal">
           <span class="card-number">01</span>
-          <h3>Lower the cost barrier</h3>
-          <p>
-            Create a portable alternative for a test that usually depends on systems costing thousands of dollars.
-          </p>
+          <h3>Lower the barrier</h3>
+          <p>A portable alternative to costly specialised systems.</p>
         </article>
 
         <article class="brief-card reveal">
           <span class="card-number">02</span>
-          <h3>Test breathing in and breathing out</h3>
-          <p>
-            Guide both MIP and MEP tests through one clear and consistent system.
-          </p>
+          <h3>Two tests, one system</h3>
+          <p>Breathing-in and breathing-out strength in one product.</p>
         </article>
 
         <article class="brief-card reveal">
           <span class="card-number">03</span>
-          <h3>Show each breath as it happens</h3>
-          <p>
-            Use a live graph so clinicians can see how each breathing effort was performed, not just the final reading.
-          </p>
+          <h3>See every effort</h3>
+          <p>A live graph shows how each try develops.</p>
         </article>
 
         <article class="brief-card reveal">
           <span class="card-number">04</span>
-          <h3>Show when the result can be trusted</h3>
-          <p>
-            Compare three tries and clearly show when the readings are close enough together to be considered consistent.
-          </p>
+          <h3>Check consistency</h3>
+          <p>Compare three tries and show when results are close enough.</p>
         </article>
 
         <article class="brief-card reveal">
           <span class="card-number">05</span>
-          <h3>Check it against hospital equipment</h3>
-          <p>
-            Prepare Aeris for comparison with standard hospital lab equipment before clinical use.
-          </p>
+          <h3>Ready for comparison</h3>
+          <p>Prepared for testing against standard hospital lab equipment.</p>
         </article>
 
         <article class="brief-card reveal">
           <span class="card-number">06</span>
-          <h3>Fit real clinical settings</h3>
-          <p>
-            Keep instructions, navigation, repeated tries, and results clear for respiratory laboratories,
-            speech pathology clinics, and breathing rehabilitation programs.
-          </p>
+          <h3>Made for clinics</h3>
+          <p>Clear steps and results for respiratory care teams.</p>
         </article>
       </div>
     </section>
@@ -400,28 +471,26 @@
           </div>
         </div>
       </div>
-    </section>
 
-    <section class="section outcomes-section">
-      <div class="section-heading reveal">
-        <h2>A More Accessible Way to Test Breathing Strength.</h2>
-      </div>
+      <div class="product-outcomes">
+        <div class="product-outcomes-heading reveal">
+          <p class="eyebrow">Why Aeris</p>
+          <h3>More Accessible by Design.</h3>
+        </div>
 
-      <div class="outcome-grid">
-        <div class="outcome-card reveal">
-          <strong>Much lower cost barrier</strong>
-          <p>A portable product priced far below laboratory and existing portable alternatives.</p>
-        </div>
-        <div class="outcome-card reveal">
-          <strong>Everything in one place</strong>
-          <p>Choose the test, follow each step, see the live graph, confirm consistent results, and review the final reading.</p>
-        </div>
-        <div class="outcome-card reveal">
-          <strong>Ready for the next check</strong>
-          <p>
-            The next stage is to compare Aeris with standard hospital lab equipment before it is considered
-            for clinical use.
-          </p>
+        <div class="outcome-grid">
+          <div class="outcome-card reveal">
+            <strong>Lower equipment barrier</strong>
+            <p>Designed to reduce reliance on costly specialised systems.</p>
+          </div>
+          <div class="outcome-card reveal">
+            <strong>One complete experience</strong>
+            <p>Choose the test, check consistency, and review the result in one place.</p>
+          </div>
+          <div class="outcome-card reveal">
+            <strong>Ready for hospital comparison</strong>
+            <p>The next step is testing Aeris against standard hospital lab equipment.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -466,6 +535,6 @@
 
     </section>
   </main>
-  <script src="script.js?v=20260716-plain-language-1"></script>
+  <script src="script.js?v=20260716-concise-mobile-1"></script>
 </body>
 </html>
