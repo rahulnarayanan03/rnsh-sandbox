@@ -53,7 +53,7 @@ body {
   font-family: "Inter", sans-serif;
   font-size: calc(16px * var(--page-scale));
   line-height: 1.6;
-  transition: background 180ms ease, color 180ms ease;
+  transition: color 180ms ease;
 }
 
 body.menu-open {
@@ -346,11 +346,6 @@ html[data-theme="dark"] .nav-pill {
   font-size: 0.9rem;
   font-weight: 600;
   transition: background 180ms ease, color 180ms ease;
-}
-
-.site-nav a:hover {
-  color: var(--teal-dark);
-  background: var(--teal-light);
 }
 
 .site-nav a.active {
