@@ -1,81 +1,49 @@
 /* --------------------------------------------------------------------------
-   Refresh scroll restoration
-   Mobile browsers may restore a tiny scroll offset or reapply the current URL
-   hash after a refresh. Preserve genuine mid-page refreshes, but keep a page
-   refreshed near the top fixed at the true top of the document.
+   Always return to the top after a refresh
+   Prevent the browser from restoring the previous scroll position or jumping
+   back to a section hash when the page is reloaded.
    -------------------------------------------------------------------------- */
-const aerisScrollStorageKey = `aeris-scroll:${window.location.pathname}`;
 const navigationEntry = window.performance
   ?.getEntriesByType?.("navigation")
   ?.[0];
+
 const isPageReload =
   navigationEntry?.type === "reload" ||
   window.performance?.navigation?.type === 1;
 
-let savedRefreshScrollY = null;
-
-try {
-  const storedScrollY = window.sessionStorage.getItem(aerisScrollStorageKey);
-  savedRefreshScrollY = storedScrollY === null ? null : Number(storedScrollY);
-} catch (error) {
-  savedRefreshScrollY = null;
-}
-
-const refreshWasNearTop =
-  isPageReload &&
-  Number.isFinite(savedRefreshScrollY) &&
-  savedRefreshScrollY <= 160;
-
-if (isPageReload && "scrollRestoration" in window.history) {
-  window.history.scrollRestoration = "manual";
-}
-
-if (refreshWasNearTop && window.location.hash) {
-  window.history.replaceState(
-    null,
-    "",
-    `${window.location.pathname}${window.location.search}`
-  );
-}
-
-function saveCurrentScrollPosition() {
-  try {
-    window.sessionStorage.setItem(
-      aerisScrollStorageKey,
-      String(Math.max(0, Math.round(window.scrollY)))
-    );
-  } catch (error) {
-    // Scroll restoration falls back to the browser when storage is unavailable.
-  }
-}
-
-function restoreRefreshScrollPosition() {
-  if (!isPageReload || !Number.isFinite(savedRefreshScrollY)) return;
-
-  window.scrollTo({
-    top: refreshWasNearTop ? 0 : savedRefreshScrollY,
-    left: 0,
-    behavior: "auto"
-  });
-}
-
-window.addEventListener("pagehide", saveCurrentScrollPosition);
-window.addEventListener("beforeunload", saveCurrentScrollPosition);
-
 if (isPageReload) {
-  restoreRefreshScrollPosition();
+  if ("scrollRestoration" in window.history) {
+    window.history.scrollRestoration = "manual";
+  }
+
+  if (window.location.hash) {
+    window.history.replaceState(
+      null,
+      "",
+      `${window.location.pathname}${window.location.search}`
+    );
+  }
+
+  const forcePageTop = () => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "auto"
+    });
+  };
+
+  forcePageTop();
 
   window.requestAnimationFrame(() => {
-    restoreRefreshScrollPosition();
-    window.requestAnimationFrame(restoreRefreshScrollPosition);
+    forcePageTop();
+    window.requestAnimationFrame(forcePageTop);
   });
 
-  window.addEventListener("pageshow", restoreRefreshScrollPosition, {
-    once: true
-  });
+  window.addEventListener("pageshow", forcePageTop, { once: true });
+  window.addEventListener("load", forcePageTop, { once: true });
 
   document.fonts?.ready
-    ?.then(restoreRefreshScrollPosition)
+    ?.then(forcePageTop)
     .catch(() => {});
 }
 
