@@ -21,7 +21,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="styles.css?v=20260720-product-carousel-fix-2" />
+  <link rel="stylesheet" href="styles.css?v=20260720-interaction-cues-1" />
   <style>
 
     .client-card {
@@ -224,7 +224,8 @@
             <span class="device-time">READY</span>
           </div>
           <div class="device-screen">
-            <a href="https://rnsh-ui-simulator.vercel.app/" target="_blank" rel="noopener noreferrer">
+            <a class="interactive-preview device-preview-link" href="https://rnsh-ui-simulator.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="Open the interactive Aeris simulator in a new tab">
+            <span class="preview-link-cue" aria-hidden="true">↗</span>
             <p class="screen-label">SELECT TEST</p>
             <div class="screen-buttons">
               <div class="screen-button">
@@ -245,13 +246,15 @@
         </div>
 
         <button class="floating-card floating-card-one" type="button" data-detail="workflow" aria-haspopup="dialog" aria-controls="detail-dialog">
-          <span>01</span>
+          <span class="floating-card-number">01</span>
           <p>Two guided breathing strength tests</p>
+          <span class="floating-card-cue" aria-hidden="true">›</span>
         </button>
 
         <button class="floating-card floating-card-two" type="button" data-detail="results" aria-haspopup="dialog" aria-controls="detail-dialog">
-          <span>02</span>
+          <span class="floating-card-number">02</span>
           <p>Clear results you can trust</p>
+          <span class="floating-card-cue" aria-hidden="true">›</span>
         </button>
       </div>
     </section>
@@ -427,8 +430,9 @@
       <div class="product-layout">
         <div class="product-visual reveal">
           <figure class="screenshot-frame">
-            <a href="https://rnsh-ui-simulator.vercel.app/" target="_blank" rel="noopener noreferrer">
-            <img id="product-feature-image" src="assets/default-image.jpg" alt="Aeris start screen with options to begin a new test or open a saved test" decoding="async"/></a>
+            <a class="interactive-preview product-preview-link" href="https://rnsh-ui-simulator.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="Open the interactive Aeris simulator in a new tab">
+            <img id="product-feature-image" src="assets/default-image.jpg" alt="Aeris start screen with options to begin a new test or open a saved test" decoding="async"/>
+            <span class="preview-link-cue" aria-hidden="true">↗</span></a>
           </figure>
         </div>
 
@@ -506,38 +510,44 @@
       <div class="team-grid reveal" aria-label="Project team profile photos">
         <article class="team-card">
           <a href="https://www.linkedin.com/in/annabel-chaperon/" target="_blank" rel="noopener noreferrer">
-          <img src="assets/team/Annabel-linkedin.jfif"/>
-          <h3>Annabel Chaperon</h3></a>
+          <img src="assets/team/Annabel-linkedin.jfif" alt="Annabel Chaperon" loading="lazy" decoding="async"/>
+          <h3>Annabel Chaperon</h3>
+          <span class="team-link-cue" aria-hidden="true">in</span></a>
         </article>
         <article class="team-card">
           <a href="https://www.linkedin.com/in/alexan1016/" target="_blank" rel="noopener noreferrer">
-          <img src="assets/team/Alex-linkedin.png"/>
-          <h3>Alex An</h3></a>
+          <img src="assets/team/Alex-linkedin.png" alt="Alex An" loading="lazy" decoding="async"/>
+          <h3>Alex An</h3>
+          <span class="team-link-cue" aria-hidden="true">in</span></a>
         </article>        
         <article class="team-card">
           <a href="https://www.linkedin.com/in/antony-lin01/" target="_blank" rel="noopener noreferrer">
-          <img src="assets/team/Tony-linkedin.png"/>
-          <h3>Antony Lin</h3></a>
+          <img src="assets/team/Tony-linkedin.png" alt="Antony Lin" loading="lazy" decoding="async"/>
+          <h3>Antony Lin</h3>
+          <span class="team-link-cue" aria-hidden="true">in</span></a>
         </article>
         <article class="team-card">
           <a href="https://www.linkedin.com/in/binethatukorala/" target="_blank" rel="noopener noreferrer">
-          <img src="assets/team/Bineth-linkedin.jfif"/>
-          <h3>Bineth Mandiv Atukorala</h3></a>
+          <img src="assets/team/Bineth-linkedin.jfif" alt="Bineth Mandiv Atukorala" loading="lazy" decoding="async"/>
+          <h3>Bineth Mandiv Atukorala</h3>
+          <span class="team-link-cue" aria-hidden="true">in</span></a>
         </article>
         <article class="team-card">
           <a href="https://www.linkedin.com/in/rahul-narayanan-mtrn/" target="_blank" rel="noopener noreferrer">
-          <img src="assets/team/Rahul-linkedin.jfif"/>
-          <h3>Rahul Narayanan</h3></a>
+          <img src="assets/team/Rahul-linkedin.jfif" alt="Rahul Narayanan" loading="lazy" decoding="async"/>
+          <h3>Rahul Narayanan</h3>
+          <span class="team-link-cue" aria-hidden="true">in</span></a>
         </article>
         <article class="team-card">
           <a href="https://www.linkedin.com/in/sammyqduong/" target="_blank" rel="noopener noreferrer">
-          <img src="assets/team/Sammy-linkedin.jfif"/>
-          <h3>Sammy Q Duong</h3></a>
+          <img src="assets/team/Sammy-linkedin.jfif" alt="Sammy Q Duong" loading="lazy" decoding="async"/>
+          <h3>Sammy Q Duong</h3>
+          <span class="team-link-cue" aria-hidden="true">in</span></a>
         </article>
       </div>
 
     </section>
   </main>
-  <script src="script.js?v=20260720-product-carousel-fix-2"></script>
+  <script src="script.js?v=20260720-interaction-cues-1"></script>
 </body>
 </html>
