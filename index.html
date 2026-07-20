@@ -21,7 +21,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="styles.css?v=20260716-concise-mobile-1" />
+  <link rel="stylesheet" href="styles.css?v=20260720-product-carousel-fix-2" />
   <style>
 
     .client-card {
@@ -428,47 +428,50 @@
         <div class="product-visual reveal">
           <figure class="screenshot-frame">
             <a href="https://rnsh-ui-simulator.vercel.app/" target="_blank" rel="noopener noreferrer">
-            <img src="assets/mip-summary-screenshot.png" alt="Aeris results screen showing the final reading, live graph, and consistency check"/></a>
+            <img id="product-feature-image" src="assets/default-image.jpg" alt="Aeris start screen with options to begin a new test or open a saved test" decoding="async"/></a>
           </figure>
         </div>
 
         <div class="product-copy reveal">
-          <div class="feature">
-            <span>01</span>
-            <div>
+          <details class="product-feature" data-image="assets/test-selection.jpg" data-image-alt="Aeris screen for choosing a breathing-in strength or breathing-out strength test">
+            <summary>
+              <span class="product-feature-number">01</span>
               <h3>Choose the test you need</h3>
+            </summary>
+            <div class="product-feature-content">
               <p>Choose breathing-in strength (MIP) or breathing-out strength (MEP), then follow clear instructions for each try.</p>
             </div>
-          </div>
+          </details>
 
-          <div class="feature">
-            <span>02</span>
-            <div>
+          <details class="product-feature" data-image="assets/real-time-recording.jpg" data-image-alt="Aeris recording screen showing a breathing effort live as a graph">
+            <summary>
+              <span class="product-feature-number">02</span>
               <h3>See each effort live</h3>
+            </summary>
+            <div class="product-feature-content">
               <p>A live graph shows how the breathing effort develops, not just the final reading.</p>
             </div>
-          </div>
+          </details>
 
-          <div class="feature">
-            <span>03</span>
-            <div>
+          <details class="product-feature" data-image="assets/pressure-curve.jpg" data-image-alt="Aeris pressure graph comparing three breathing attempts for consistency">
+            <summary>
+              <span class="product-feature-number">03</span>
               <h3>Know when the result is reliable</h3>
-              <p>
-                Aeris compares repeated tries and clearly shows when three readings are close enough together.
-              </p>
+            </summary>
+            <div class="product-feature-content">
+              <p>Aeris compares repeated tries and clearly shows when three readings are close enough together.</p>
             </div>
-          </div>
+          </details>
 
-          <div class="feature">
-            <span>04</span>
-            <div>
+          <details class="product-feature" data-image="assets/mip-summary-screenshot.jpg" data-image-alt="Aeris final summary showing the result, expected values, graph, consistency and number of tries">
+            <summary>
+              <span class="product-feature-number">04</span>
               <h3>See the full result at a glance</h3>
-              <p>
-                See the final reading, live graph, comparison with expected values, whether the tries were consistent,
-                the number of tries, and the test time on one screen.
-              </p>
+            </summary>
+            <div class="product-feature-content">
+              <p>See the final reading, live graph, comparison with expected values, whether the tries were consistent, the number of tries, and the test time on one screen.</p>
             </div>
-          </div>
+          </details>
         </div>
       </div>
 
@@ -535,6 +538,6 @@
 
     </section>
   </main>
-  <script src="script.js?v=20260716-refresh-top-always-1"></script>
+  <script src="script.js?v=20260720-product-carousel-fix-2"></script>
 </body>
 </html>

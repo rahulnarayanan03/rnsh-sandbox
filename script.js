@@ -588,10 +588,66 @@ linkedinProfileLinks.forEach((link) => {
   });
 });
 
-const developmentDropdowns =
+const animatedDropdowns =
   document.querySelectorAll(
-    ".timeline-item details"
+    ".timeline-item details, .product-feature"
   );
+
+const productFeatureImage = document.querySelector("#product-feature-image");
+const defaultProductImage = {
+  // Read the default directly from the HTML so changing the image file type or
+  // filename later does not break the reset state.
+  src: productFeatureImage?.getAttribute("src") || "assets/default-image.jpg",
+  alt: productFeatureImage?.getAttribute("alt") ||
+    "Aeris start screen with options to begin a new test or open a saved test"
+};
+let productImageChangeId = 0;
+
+function setProductFeatureImage(details = null) {
+  if (!productFeatureImage) return;
+
+  const nextImage = {
+    src: details?.dataset.image || defaultProductImage.src,
+    alt: details?.dataset.imageAlt || defaultProductImage.alt
+  };
+
+  if (productFeatureImage.getAttribute("src") === nextImage.src) {
+    productFeatureImage.alt = nextImage.alt;
+    return;
+  }
+
+  const changeId = ++productImageChangeId;
+  const preload = new Image();
+
+  productFeatureImage.classList.add("is-changing");
+
+  preload.onload = () => {
+    if (changeId !== productImageChangeId) return;
+
+    window.setTimeout(() => {
+      if (changeId !== productImageChangeId) return;
+
+      productFeatureImage.src = nextImage.src;
+      productFeatureImage.alt = nextImage.alt;
+
+      window.requestAnimationFrame(() => {
+        window.requestAnimationFrame(() => {
+          if (changeId === productImageChangeId) {
+            productFeatureImage.classList.remove("is-changing");
+          }
+        });
+      });
+    }, 90);
+  };
+
+  preload.onerror = () => {
+    if (changeId === productImageChangeId) {
+      productFeatureImage.classList.remove("is-changing");
+    }
+  };
+
+  preload.src = nextImage.src;
+}
 
 const reducedMotionQuery =
   window.matchMedia(
@@ -612,12 +668,12 @@ function closedDetailsHeight(
   );
 }
 
-developmentDropdowns.forEach((details) => {
+animatedDropdowns.forEach((details) => {
   const summary =
     details.querySelector("summary");
 
   const content =
-    details.querySelector(".timeline-content");
+    details.querySelector(".timeline-content, .product-feature-content");
 
   let heightAnimation = null;
   let contentAnimation = null;
@@ -784,11 +840,45 @@ developmentDropdowns.forEach((details) => {
     );
   }
 
+  // Expose the animated close action so the Final Product dropdowns can
+  // behave as an accordion without changing the Development section.
+  details.closeAnimatedDropdown = () => {
+    if (targetOpen || details.open) {
+      toggleDropdown(false);
+    }
+  };
+
   summary.addEventListener(
     "click",
     (event) => {
       event.preventDefault();
-      toggleDropdown(!targetOpen);
+
+      const opening = !targetOpen;
+
+      // Only the Final Product points use accordion behaviour. Opening one
+      // closes any other point that is currently open in the same section.
+      if (details.classList.contains("product-feature")) {
+        if (opening) {
+          document.querySelectorAll(".product-feature").forEach((otherDetails) => {
+            if (
+              otherDetails !== details &&
+              typeof otherDetails.closeAnimatedDropdown === "function"
+            ) {
+              otherDetails.closeAnimatedDropdown();
+            }
+          });
+
+          setProductFeatureImage(details);
+        } else {
+          setProductFeatureImage();
+        }
+      }
+
+      toggleDropdown(opening);
     }
   );
 });
+
+
+const initiallyOpenProductFeature = document.querySelector(".product-feature[open]");
+setProductFeatureImage(initiallyOpenProductFeature);
