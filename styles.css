@@ -3762,16 +3762,6 @@ html:not([data-theme="dark"]) .timeline-item summary::after {
   transform: rotate(45deg);
 }
 
-html:not([data-theme="dark"]) .timeline-item details[open]:not(.has-animated-dropdown) summary::after,
-html:not([data-theme="dark"]) .timeline-item details.is-expanded summary::after {
-  color: #205bd9;
-  border-color: rgba(255, 255, 255, 0.72);
-  background:
-    radial-gradient(120% 92% at 5% -14%, rgba(255, 255, 255, 0.78), transparent 48%),
-    radial-gradient(92% 78% at 105% 112%, rgba(76, 133, 255, 0.21), transparent 58%),
-    linear-gradient(145deg, rgba(184, 208, 255, 0.4), rgba(236, 243, 255, 0.14)),
-    rgba(225, 235, 248, 0.16);
-}
 
 @media (max-width: 980px) {
   .timeline-item summary {
@@ -3915,19 +3905,6 @@ html:not([data-theme="dark"]) .timeline-item details.is-expanded summary::after 
 
 .product-feature[open]:not(.has-animated-dropdown) summary::after,
 .product-feature.is-expanded summary::after {
-  color: #e4edff;
-  border-color: rgba(211, 228, 255, 0.32);
-  background:
-    radial-gradient(120% 92% at 5% -14%, rgba(222, 236, 255, 0.24), transparent 48%),
-    radial-gradient(92% 78% at 105% 112%, rgba(68, 123, 242, 0.28), transparent 58%),
-    linear-gradient(145deg, rgba(153, 190, 255, 0.16), rgba(255, 255, 255, 0.035) 42%, rgba(79, 121, 211, 0.055)),
-    rgba(8, 21, 40, 0.23);
-  box-shadow:
-    inset 0 1.5px 0 rgba(255, 255, 255, 0.34),
-    inset 0 -1px 0 rgba(30, 61, 119, 0.46),
-    inset 1px 0 0 rgba(214, 231, 255, 0.085),
-    0 15px 34px rgba(0, 0, 0, 0.36),
-    0 0 32px rgba(77, 126, 236, 0.1);
   transform: translateY(-50%) rotate(45deg);
 }
 
@@ -3948,16 +3925,6 @@ html:not([data-theme="dark"]) .product-feature summary::after {
   text-shadow: none;
 }
 
-html:not([data-theme="dark"]) .product-feature[open]:not(.has-animated-dropdown) summary::after,
-html:not([data-theme="dark"]) .product-feature.is-expanded summary::after {
-  color: #205bd9;
-  border-color: rgba(255, 255, 255, 0.72);
-  background:
-    radial-gradient(120% 92% at 5% -14%, rgba(255, 255, 255, 0.78), transparent 48%),
-    radial-gradient(92% 78% at 105% 112%, rgba(76, 133, 255, 0.21), transparent 58%),
-    linear-gradient(145deg, rgba(184, 208, 255, 0.4), rgba(236, 243, 255, 0.14)),
-    rgba(225, 235, 248, 0.16);
-}
 
 .product-feature summary:focus-visible {
   outline: none;
@@ -4198,8 +4165,11 @@ html:not([data-theme="dark"]) .team-link-cue {
 }
 
 .timeline-item details.is-expanded summary,
-.product-feature.is-expanded summary {
-  background: rgba(128, 169, 255, 0.075);
+.timeline-item details[open] summary,
+.product-feature.is-expanded summary,
+.product-feature[open] summary {
+  background: transparent;
+  box-shadow: none;
 }
 
 .interactive-preview:focus-visible,
@@ -4371,5 +4341,153 @@ html:not([data-theme="dark"]) .team-link-cue {
   .timeline-item.visible summary::after,
   .product-copy.visible .product-feature summary::after {
     animation: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Desktop layout rebalancing
+   Uses the available horizontal space and lets each section follow its content
+   instead of forcing every chapter to fill an entire viewport.
+   -------------------------------------------------------------------------- */
+@media (min-width: 981px) {
+  main > section.section[id]:not(#team) {
+    min-height: 0;
+  }
+}
+
+@media (min-width: 981px) and (max-width: 2199px) {
+  .site-header,
+  .section:not(.section-dark):not(.section-soft):not(.team-section),
+  .stats-strip {
+    width: min(1360px, calc(100% - 64px));
+  }
+
+  .section-dark,
+  .section-soft,
+  .team-section {
+    padding-right: max(32px, calc((100vw - 1360px) / 2));
+    padding-left: max(32px, calc((100vw - 1360px) / 2));
+  }
+
+  main > section.section[id] {
+    padding-top: 74px;
+    padding-bottom: 74px;
+  }
+
+  .hero {
+    width: min(1360px, calc(100% - 64px));
+    grid-template-columns: minmax(0, 1.04fr) minmax(0, 0.96fr);
+    gap: 72px;
+  }
+
+  .section-grid {
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+    gap: 88px;
+    align-items: start;
+  }
+
+  .section-heading {
+    max-width: 720px;
+  }
+
+  .section-content {
+    max-width: 780px;
+  }
+
+  .client-layout {
+    grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
+    gap: 88px;
+    align-items: center;
+  }
+
+  .client-card {
+    grid-template-columns: minmax(240px, 310px) minmax(0, 1fr);
+    gap: 32px;
+    padding: 30px;
+  }
+
+  .brief-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    margin-top: 34px;
+  }
+
+  .brief-card {
+    min-height: 190px;
+    padding: 24px;
+  }
+
+  .timeline {
+    max-width: 1240px;
+    margin-top: 38px;
+  }
+
+  .timeline-content {
+    max-width: 980px;
+  }
+
+  .product-layout {
+    grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+    gap: 64px;
+    margin-top: 38px;
+  }
+
+  .product-outcomes {
+    margin-top: 64px;
+    padding-top: 42px;
+  }
+
+  .team-grid {
+    gap: 16px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   GPT-32 refinements
+   Keep desktop anchors clear of the fixed navigation, keep dropdowns neutral
+   when open, and reduce the Final Product screenshot to a supporting visual.
+   -------------------------------------------------------------------------- */
+@media (min-width: 981px) and (max-width: 2199px) {
+  .product-layout {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: 68px;
+  }
+
+  .product-visual {
+    width: min(100%, 570px);
+    justify-self: start;
+  }
+}
+
+@media (min-width: 2200px) {
+  .product-layout {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  }
+
+  .product-visual {
+    width: min(100%, 720px);
+    justify-self: start;
+  }
+}
+
+.timeline-item details[open] summary,
+.timeline-item details.is-expanded summary,
+.product-feature[open] summary,
+.product-feature.is-expanded summary {
+  background: transparent;
+  box-shadow: none;
+}
+/* --------------------------------------------------------------------------
+   GPT-33 refinement
+   Raise the Client heading on desktop so the two columns share a clearer
+   top alignment without changing the phone and tablet layout.
+   -------------------------------------------------------------------------- */
+@media (min-width: 981px) {
+  #client .client-layout {
+    align-items: start;
+  }
+
+  #client .section-heading {
+    padding-top: 40px;
   }
 }

@@ -244,10 +244,10 @@ function getDesktopContentGap() {
 }
 
 const sectionDesktopOffsets = {
-  overview: -45,
-  client: -45,
-  brief: -45,
-  development: -45,
+  overview: -30,
+  client: -40,
+  brief: -35,
+  development: -35,
   product: -35,
   team: -40
 };
