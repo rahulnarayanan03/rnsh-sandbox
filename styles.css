@@ -4749,3 +4749,17 @@ html[data-theme="dark"] .detail-dialog-close {
     text-shadow: 0 0 12px rgba(80, 133, 245, 0.24);
   }
 }
+
+/* --------------------------------------------------------------------------
+   GPT-42: slightly more breathing room between Development stages on phones.
+   Desktop and tablet spacing remains unchanged.
+   -------------------------------------------------------------------------- */
+@media (max-width: 680px) {
+  #development .timeline-item {
+    padding-bottom: 30px;
+  }
+
+  #development .timeline-item:last-child {
+    padding-bottom: 0;
+  }
+}
