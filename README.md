@@ -13,3 +13,9 @@ Responsive product website for Aeris by Optik.
 ## GPT-7 desktop section framing
 
 On displays wider than 980 px, each navigable section except Team now occupies at least one viewport height. This keeps navbar jumps visually self-contained without shortening sections whose content already exceeds the viewport.
+
+## GPT-38 mobile polish
+
+- Moved the two hero feature-card arrow cues into the top-right number row on phones.
+- Reduced their mobile size so they no longer overlap multi-line feature headings.
+- Desktop and tablet layouts are unchanged.

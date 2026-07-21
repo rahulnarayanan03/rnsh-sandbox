@@ -60,3 +60,8 @@ GPT-7 update:
 - On laptop and larger displays, each navigable section except Team now has a minimum height of one viewport.
 - This prevents the next section from appearing at the bottom immediately after using the navbar.
 - Sections with more content remain naturally taller than the viewport.
+
+GPT-38 mobile polish:
+- Feature-card arrows now sit beside the feature number on phones.
+- Smaller phone-only cue sizing prevents overlap with the card headings.
+- Desktop and tablet layouts are unchanged.
