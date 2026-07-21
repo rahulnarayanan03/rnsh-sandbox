@@ -4668,3 +4668,84 @@ html[data-theme="dark"] .detail-dialog-close {
     padding-right: 31px;
   }
 }
+
+/* GPT-40: keep the Final Product image preview physically still on hover.
+   The Liquid Glass reflection can still sweep across the outer frame. */
+@media (hover: hover) and (pointer: fine) {
+  .product-visual:hover {
+    transform: none !important;
+    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow:
+      inset 0 1.5px 0 rgba(255, 255, 255, 0.84),
+      inset 0 -1px 0 rgba(77, 104, 151, 0.18),
+      inset 1px 0 0 rgba(255, 255, 255, 0.25),
+      inset -1px 0 0 rgba(255, 255, 255, 0.07),
+      0 18px 46px rgba(9, 22, 41, 0.1),
+      0 0 0 1px rgba(255, 255, 255, 0.035);
+  }
+
+  html[data-theme="dark"] .product-visual:hover {
+    border-color: rgba(205, 224, 255, 0.23);
+    box-shadow:
+      inset 0 1.5px 0 rgba(255, 255, 255, 0.25),
+      inset 0 -1px 0 rgba(30, 61, 119, 0.38),
+      inset 1px 0 0 rgba(214, 231, 255, 0.065),
+      inset -1px 0 0 rgba(124, 164, 240, 0.035),
+      0 20px 48px rgba(0, 0, 0, 0.34),
+      0 0 32px rgba(77, 126, 236, 0.045);
+  }
+
+  .product-preview-link:hover img,
+  .product-preview-link:focus-visible img,
+  .product-visual:hover #product-feature-image {
+    transform: none !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   GPT-41: Liquid Glass hover glow for dropdown controls
+   Keep each dropdown row stationary and apply the hover response only to the
+   circular plus control.
+   -------------------------------------------------------------------------- */
+@media (hover: hover) and (pointer: fine) {
+  .timeline-item summary:hover::after,
+  .product-feature summary:hover::after {
+    color: #dfe9ff;
+    border-color: rgba(218, 233, 255, 0.48);
+    background:
+      radial-gradient(120% 92% at 5% -14%, rgba(229, 240, 255, 0.29), transparent 48%),
+      radial-gradient(92% 78% at 105% 112%, rgba(79, 137, 255, 0.34), transparent 58%),
+      linear-gradient(145deg, rgba(168, 200, 255, 0.2), rgba(255, 255, 255, 0.055) 42%, rgba(88, 135, 226, 0.08)),
+      rgba(9, 24, 47, 0.3);
+    box-shadow:
+      inset 0 1.5px 0 rgba(255, 255, 255, 0.42),
+      inset 0 -1px 0 rgba(34, 70, 137, 0.48),
+      inset 1px 0 0 rgba(220, 235, 255, 0.12),
+      inset -1px 0 0 rgba(136, 176, 255, 0.08),
+      0 13px 30px rgba(0, 0, 0, 0.31),
+      0 0 18px rgba(96, 149, 255, 0.27),
+      0 0 38px rgba(70, 124, 245, 0.15);
+    text-shadow:
+      0 0 8px rgba(206, 224, 255, 0.76),
+      0 0 18px rgba(104, 157, 255, 0.58);
+  }
+
+  html:not([data-theme="dark"]) .timeline-item summary:hover::after,
+  html:not([data-theme="dark"]) .product-feature summary:hover::after {
+    color: #245edb;
+    border-color: rgba(101, 146, 238, 0.43);
+    background:
+      radial-gradient(120% 92% at 5% -14%, rgba(255, 255, 255, 0.92), transparent 48%),
+      radial-gradient(92% 78% at 105% 112%, rgba(95, 147, 255, 0.25), transparent 58%),
+      linear-gradient(145deg, rgba(255, 255, 255, 0.58), rgba(239, 246, 255, 0.22) 42%, rgba(205, 224, 255, 0.16)),
+      rgba(225, 237, 253, 0.18);
+    box-shadow:
+      inset 0 1.5px 0 rgba(255, 255, 255, 0.96),
+      inset 0 -1px 0 rgba(69, 101, 162, 0.22),
+      inset 1px 0 0 rgba(255, 255, 255, 0.42),
+      0 12px 27px rgba(24, 51, 98, 0.13),
+      0 0 18px rgba(74, 126, 239, 0.22),
+      0 0 34px rgba(73, 131, 255, 0.12);
+    text-shadow: 0 0 12px rgba(80, 133, 245, 0.24);
+  }
+}

@@ -21,7 +21,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="styles.css?v=20260721-gpt-33"/>
+  <link rel="stylesheet" href="styles.css?v=20260722-gpt-41"/>
   <style>
 
     .client-card {
@@ -163,6 +163,23 @@
         grid-template-columns: 1fr;
       }
     }
+
+    /* Static image previews: keep the existing layout without link behaviour. */
+    .static-preview {
+      cursor: default !important;
+      pointer-events: none;
+      text-decoration: none;
+    }
+
+    .static-preview:hover,
+    .static-preview:focus,
+    .static-preview:active {
+      transform: none !important;
+    }
+
+    .static-preview::after {
+      content: none !important;
+    }
   </style>
 </head>
 <body>
@@ -224,24 +241,23 @@
             <span class="device-time">READY</span>
           </div>
           <div class="device-screen">
-            <a class="interactive-preview device-preview-link" href="https://rnsh-ui-simulator.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="Open the interactive Aeris simulator in a new tab">
-            <span class="preview-link-cue" aria-hidden="true">↗</span>
-            <p class="screen-label">SELECT TEST</p>
-            <div class="screen-buttons">
-              <div class="screen-button">
-                <strong>MIP</strong>
-                <span>Breathing-in strength</span>
+            <div class="interactive-preview device-preview-link static-preview">
+              <p class="screen-label">SELECT TEST</p>
+              <div class="screen-buttons">
+                <div class="screen-button">
+                  <strong>MIP</strong>
+                  <span>Breathing-in strength</span>
+                </div>
+                <div class="screen-button">
+                  <strong>MEP</strong>
+                  <span>Breathing-out strength</span>
+                </div>
               </div>
-              <div class="screen-button">
-                <strong>MEP</strong>
-                <span>Breathing-out strength</span>
+              <div class="screen-footer">
+                <span>Touch or D-Pad navigation</span>
+                <span>Ready for testing</span>
               </div>
             </div>
-            <div class="screen-footer">
-              <span>Touch or D-Pad navigation</span>
-              <span>Ready for testing</span>
-            </div>
-            </a>
           </div>
         </div>
 
@@ -430,9 +446,9 @@
       <div class="product-layout">
         <div class="product-visual reveal">
           <figure class="screenshot-frame">
-            <a class="interactive-preview product-preview-link" href="https://rnsh-ui-simulator.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="Open the interactive Aeris simulator in a new tab">
-            <img id="product-feature-image" src="assets/default-image.jpg" alt="Aeris start screen with options to begin a new test or open a saved test" decoding="async"/>
-            <span class="preview-link-cue" aria-hidden="true">↗</span></a>
+            <div class="interactive-preview product-preview-link static-preview">
+              <img id="product-feature-image" src="assets/default-image.jpg" alt="Aeris start screen with options to begin a new test or open a saved test" decoding="async"/>
+            </div>
           </figure>
         </div>
 
