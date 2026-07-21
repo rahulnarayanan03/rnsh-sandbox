@@ -4478,9 +4478,9 @@ html:not([data-theme="dark"]) .team-link-cue {
   box-shadow: none;
 }
 /* --------------------------------------------------------------------------
-   GPT-33 refinement
-   Raise the Client heading on desktop so the two columns share a clearer
-   top alignment without changing the phone and tablet layout.
+   GPT-34 refinement
+   Lift the Client label and heading slightly above the card's inner top
+   padding on desktop, while leaving tablet and phone layouts unchanged.
    -------------------------------------------------------------------------- */
 @media (min-width: 981px) {
   #client .client-layout {
@@ -4488,6 +4488,6 @@ html:not([data-theme="dark"]) .team-link-cue {
   }
 
   #client .section-heading {
-    padding-top: 40px;
+    padding-top: 20px;
   }
 }
