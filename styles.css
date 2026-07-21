@@ -3310,7 +3310,7 @@ html:not([data-theme="dark"]) .stats-strip {
   .hero {
     gap: 24px;
     padding-top: 108px;
-    padding-bottom: 30px;
+    padding-bottom: 40px;
   }
 
   .section-heading,
